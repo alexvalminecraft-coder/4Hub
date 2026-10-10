@@ -4,7 +4,7 @@ end
 local effectProtection
 local TweenService, userInputService, Workspace, localPlayer1, themeColors, gothamMedium, gothamBold, HttpService, savedConfig
 local saveConfig, saveToggle, getSavedToggle, saveWindowPosition, restoreWindowPosition, saveNumber, getSavedNumber, saveChoice, getSavedChoice, enabled1
-local value3, 4HubLocked, createUICorner, createUIStroke, screenGui, RunService, udim2, frame, uiStroke, frame2
+local value3, RyftLocked, createUICorner, createUIStroke, screenGui, RunService, udim2, frame, uiStroke, frame2
 local instance, frame3, textButton, tabRegistry, selectTab, createSection, createToggle, createKeybindToggle, createTextButton, createTextBox
 local createSlider, createLabel, service1, Keybinds, ap, Settings, Config_, frame4, enabled2, handleAction
 local handleAction1, handleAction2, handleAction3, number, number1, enabled3, enabled4, text3, folder, folder2
@@ -124,14 +124,14 @@ do
 				getSavedChoice = function(settingName5)
 					return savedConfig.choices[settingName5]
 				end
-				_G.__4HubBlacklist = _G.__4HubBlacklist or {}
+				_G.__RyftBlacklist = _G.__RyftBlacklist or {}
 				do
 					local APBlacklist = getSavedChoice("APBlacklist")
 					if type(APBlacklist) == "string" and APBlacklist ~= "" then
 						pcall(function()
 							local data = HttpService:JSONDecode(APBlacklist)
 							if type(data) == "table" then
-								_G.__4HubBlacklist = data
+								_G.__RyftBlacklist = data
 							end
 						end)
 					end
@@ -141,27 +141,27 @@ do
 					do
 						local function handleAction10()
 							pcall(function()
-								saveChoice("APBlacklist", HttpService:JSONEncode(_G.__4HubBlacklist))
+								saveChoice("APBlacklist", HttpService:JSONEncode(_G.__RyftBlacklist))
 								return
 							end)
 						end
-						_G.__4HubBlAdd = function(argument3, argument4, argument5)
-							_G.__4HubBlacklist[tostring(argument3)] = { name = argument4, display = argument5 }
+						_G.__RyftBlAdd = function(argument3, argument4, argument5)
+							_G.__RyftBlacklist[tostring(argument3)] = { name = argument4, display = argument5 }
 							handleAction10()
-							if _G.__4HubBlChanged then
-								pcall(_G.__4HubBlChanged)
+							if _G.__RyftBlChanged then
+								pcall(_G.__RyftBlChanged)
 							end
 							return
 						end
-						_G.__4HubBlRemove = function(argument6)
-							_G.__4HubBlacklist[tostring(argument6)] = nil
+						_G.__RyftBlRemove = function(argument6)
+							_G.__RyftBlacklist[tostring(argument6)] = nil
 							handleAction10()
-							if _G.__4HubBlChanged then
-								pcall(_G.__4HubBlChanged)
+							if _G.__RyftBlChanged then
+								pcall(_G.__RyftBlChanged)
 							end
 						end
 					end
-					_G.__4HubIsBlacklisted = function(argument7)
+					_G.__RyftIsBlacklisted = function(argument7)
 						if not argument7 then
 							return false
 						end
@@ -169,22 +169,22 @@ do
 						if not userId then
 							return false
 						end
-						return _G.__4HubBlacklist[tostring(userId)] ~= nil
+						return _G.__RyftBlacklist[tostring(userId)] ~= nil
 					end
 					enabled1 = false
 					value5 = nil
 					value3 = nil
-					4HubLocked = false
-					_G.__4HubLocked = false
-					_G.__4HubUIRegistry = _G.__4HubUIRegistry or {}
-					_G.__4HubRegisterDrag = function(argument8, argument9, argument10, argument11)
+					RyftLocked = false
+					_G.__RyftLocked = false
+					_G.__RyftUIRegistry = _G.__RyftUIRegistry or {}
+					_G.__RyftRegisterDrag = function(argument8, argument9, argument10, argument11)
 						local UserInputService2 = game:GetService("UserInputService")
 						if argument10 then
 							restoreWindowPosition(argument10, argument8)
 						end
 						argument8.Active = true
 						local options1 = { window = argument8, key = argument10, home = argument11 }
-						table.insert(_G.__4HubUIRegistry, options1)
+						table.insert(_G.__RyftUIRegistry, options1)
 						local enabled5 = nil
 						local position = nil
 						local position2 = nil
@@ -192,10 +192,10 @@ do
 						local connection_2 = nil
 						argument9.Active = true
 						argument9.InputBegan:Connect(function(input)
-							if _G.__4HubLocked then
+							if _G.__RyftLocked then
 								return
 							end
-							if _G.__4HubSliderDragging then
+							if _G.__RyftSliderDragging then
 								return
 							end
 							if input.UserInputType ~= Enum.UserInputType.MouseButton1 and input.UserInputType ~= Enum.UserInputType.Touch then
@@ -238,8 +238,8 @@ do
 						end)
 						return options1
 					end
-					_G.__4HubResetUIs = function()
-						for _, value6 in ipairs(_G.__4HubUIRegistry) do
+					_G.__RyftResetUIs = function()
+						for _, value6 in ipairs(_G.__RyftUIRegistry) do
 							if value6.window and value6.window.Parent then
 								if value6.key then
 									savedConfig.positions[value6.key] = nil
@@ -251,23 +251,23 @@ do
 							end
 						end
 					end
-					_G.__4HubSetLocked = function(argument12)
-						_G.__4HubLocked = argument12 and true or false
+					_G.__RyftSetLocked = function(argument12)
+						_G.__RyftLocked = argument12 and true or false
 					end
-					_G.__4HubGuiScaleCur = _G.__4HubGuiScaleCur or 100
-					_G.__4HubScaleExtra = _G.__4HubScaleExtra or {}
-					_G.__4HubScaleExclude = _G.__4HubScaleExclude or setmetatable({}, { __mode = "k" })
-					_G.__4HubExcludeScale = function(argument13)
+					_G.__RyftGuiScaleCur = _G.__RyftGuiScaleCur or 100
+					_G.__RyftScaleExtra = _G.__RyftScaleExtra or {}
+					_G.__RyftScaleExclude = _G.__RyftScaleExclude or setmetatable({}, { __mode = "k" })
+					_G.__RyftExcludeScale = function(argument13)
 						if not argument13 then
 							return
 						end
-						_G.__4HubScaleExclude[argument13] = true
-						local 4HubUIScale = argument13:FindFirstChild("4HubUIScale")
-						if 4HubUIScale then
-							4HubUIScale.Scale = 1
+						_G.__RyftScaleExclude[argument13] = true
+						local RyftUIScale = argument13:FindFirstChild("RyftUIScale")
+						if RyftUIScale then
+							RyftUIScale.Scale = 1
 						end
 					end
-					_G.__4HubMobileFactor = function()
+					_G.__RyftMobileFactor = function()
 						local ok, result = pcall(function()
 							return game:GetService("UserInputService")
 						end)
@@ -281,67 +281,67 @@ do
 							if not parent then
 								return
 							end
-							if _G.__4HubScaleExclude and _G.__4HubScaleExclude[parent] then
-								local 4HubUIScale = parent:FindFirstChild("4HubUIScale")
-								if 4HubUIScale then
-									4HubUIScale.Scale = 1
+							if _G.__RyftScaleExclude and _G.__RyftScaleExclude[parent] then
+								local RyftUIScale = parent:FindFirstChild("RyftUIScale")
+								if RyftUIScale then
+									RyftUIScale.Scale = 1
 								end
 								return
 							end
-							local 4HubUIScale = parent:FindFirstChild("4HubUIScale")
-							if not 4HubUIScale then
-								4HubUIScale = Instance.new("UIScale")
-								4HubUIScale.Name = "4HubUIScale"
-								4HubUIScale.Parent = parent
+							local RyftUIScale = parent:FindFirstChild("RyftUIScale")
+							if not RyftUIScale then
+								RyftUIScale = Instance.new("UIScale")
+								RyftUIScale.Name = "RyftUIScale"
+								RyftUIScale.Parent = parent
 							end
-							4HubUIScale.Scale = scale
+							RyftUIScale.Scale = scale
 						end
-						_G.__4HubRegisterScale = function(argument14)
+						_G.__RyftRegisterScale = function(argument14)
 							if not argument14 then
 								return
 							end
-							table.insert(_G.__4HubScaleExtra, argument14)
-							handleAction11(argument14, math.clamp((_G.__4HubGuiScaleCur or 100) / 100, 0.5, 1.05) * _G.__4HubMobileFactor())
+							table.insert(_G.__RyftScaleExtra, argument14)
+							handleAction11(argument14, math.clamp((_G.__RyftGuiScaleCur or 100) / 100, 0.5, 1.05) * _G.__RyftMobileFactor())
 						end
-						_G.__4HubSetGuiScale = function(argument15)
-							_G.__4HubGuiScaleCur = tonumber(argument15) or 100
-							local number4 = math.clamp((tonumber(argument15) or 100) / 100, 0.5, 1.05) * _G.__4HubMobileFactor()
-							handleAction11(_G.__4HubMainWindow, number4)
+						_G.__RyftSetGuiScale = function(argument15)
+							_G.__RyftGuiScaleCur = tonumber(argument15) or 100
+							local number4 = math.clamp((tonumber(argument15) or 100) / 100, 0.5, 1.05) * _G.__RyftMobileFactor()
+							handleAction11(_G.__RyftMainWindow, number4)
 							local value7 = ipairs
-							local 4HubUIRegistry = _G.__4HubUIRegistry or {}
-							for _, value8 in value7(4HubUIRegistry) do
+							local RyftUIRegistry = _G.__RyftUIRegistry or {}
+							for _, value8 in value7(RyftUIRegistry) do
 								handleAction11(value8.window, number4)
 							end
 							local value9 = ipairs
-							local 4HubScaleExtra = _G.__4HubScaleExtra or {}
-							for _, value10 in value9(4HubScaleExtra) do
+							local RyftScaleExtra = _G.__RyftScaleExtra or {}
+							for _, value10 in value9(RyftScaleExtra) do
 								handleAction11(value10, number4)
 							end
 						end
 					end
-					_G.__4HubGuiTranspOrig = _G.__4HubGuiTranspOrig or setmetatable({}, { __mode = "k" })
-					_G.__4HubSetGuiTransparency = function(argument16)
+					_G.__RyftGuiTranspOrig = _G.__RyftGuiTranspOrig or setmetatable({}, { __mode = "k" })
+					_G.__RyftSetGuiTransparency = function(argument16)
 						local number5 = 1 - math.clamp((tonumber(argument16) or 100) / 100, 0.15, 1)
-						local 4HubTranspExclude = _G.__4HubTranspExclude or {}
+						local RyftTranspExclude = _G.__RyftTranspExclude or {}
 						local value11 = ipairs
-						local 4HubUIRegistry = _G.__4HubUIRegistry or {}
-						for _, value12 in value11(4HubUIRegistry) do
+						local RyftUIRegistry = _G.__RyftUIRegistry or {}
+						for _, value12 in value11(RyftUIRegistry) do
 							local window = value12.window
-							if window and not 4HubTranspExclude[window] then
-								local backgroundTransparency = _G.__4HubGuiTranspOrig[window]
+							if window and not RyftTranspExclude[window] then
+								local backgroundTransparency = _G.__RyftGuiTranspOrig[window]
 								if backgroundTransparency == nil then
 									backgroundTransparency = window.BackgroundTransparency
-									_G.__4HubGuiTranspOrig[window] = backgroundTransparency
+									_G.__RyftGuiTranspOrig[window] = backgroundTransparency
 								end
 								pcall(function()
 									window.BackgroundTransparency = backgroundTransparency + (1 - backgroundTransparency) * number5
 								end)
 								local body = window:FindFirstChild("Body")
 								if body and body:IsA("GuiObject") then
-									local backgroundTransparency2 = _G.__4HubGuiTranspOrig[body]
+									local backgroundTransparency2 = _G.__RyftGuiTranspOrig[body]
 									if backgroundTransparency2 == nil then
 										backgroundTransparency2 = body.BackgroundTransparency
-										_G.__4HubGuiTranspOrig[body] = backgroundTransparency2
+										_G.__RyftGuiTranspOrig[body] = backgroundTransparency2
 									end
 									pcall(function()
 										body.BackgroundTransparency = backgroundTransparency2 + (1 - backgroundTransparency2) * number5
@@ -387,24 +387,24 @@ do
 					screenGui.DisplayOrder = 100000
 					screenGui.Parent = localPlayer1:WaitForChild("PlayerGui")
 					RunService = game:GetService("RunService")
-					_G.__4HubDead = false
-					_G.__4HubLeaveConns = _G.__4HubLeaveConns or {}
-					_G.__4HubOwnConns = _G.__4HubOwnConns or {}
-					_G.__4HubOnLeave = function(argument19)
+					_G.__RyftDead = false
+					_G.__RyftLeaveConns = _G.__RyftLeaveConns or {}
+					_G.__RyftOwnConns = _G.__RyftOwnConns or {}
+					_G.__RyftOnLeave = function(argument19)
 						if type(argument19) == "function" then
-							_G.__4HubLeaveConns[#_G.__4HubLeaveConns + 1] = argument19
+							_G.__RyftLeaveConns[#_G.__RyftLeaveConns + 1] = argument19
 						end
 					end
-					_G.__4HubKill = function()
+					_G.__RyftKill = function()
 					end
 					do
 						local localPlayer7 = game:GetService("Players").LocalPlayer
-						_G.__4HubLocalChar = localPlayer7.Character
+						_G.__RyftLocalChar = localPlayer7.Character
 						localPlayer7.CharacterAdded:Connect(function(character)
-							_G.__4HubLocalChar = character
+							_G.__RyftLocalChar = character
 						end)
 						localPlayer7.CharacterRemoving:Connect(function()
-							_G.__4HubLocalChar = nil
+							_G.__RyftLocalChar = nil
 						end)
 					end
 					TweenService3 = game:GetService("TweenService")
@@ -418,19 +418,19 @@ do
 							end
 							return game:GetService("CoreGui")
 						end
-						if _G.__4HubNotifEnabled == nil then
-							_G.__4HubNotifEnabled = true
+						if _G.__RyftNotifEnabled == nil then
+							_G.__RyftNotifEnabled = true
 						end
 						color = Color3.fromRGB(92, 165, 255)
 						color2 = Color3.fromRGB(10, 14, 24)
-						local 4HubNotifs = handleAction12():FindFirstChild("4HubNotifs")
-						if 4HubNotifs then
+						local RyftNotifs = handleAction12():FindFirstChild("RyftNotifs")
+						if RyftNotifs then
 							pcall(function()
-								4HubNotifs:Destroy()
+								RyftNotifs:Destroy()
 							end)
 						end
 						screenGui2 = Instance.new("ScreenGui")
-						screenGui2.Name = "4HubNotifs"
+						screenGui2.Name = "RyftNotifs"
 						screenGui2.ResetOnSpawn = false
 						screenGui2.IgnoreGuiInset = true
 						screenGui2.DisplayOrder = 2000000
@@ -457,8 +457,8 @@ do
 						local layoutOrder = 0
 						local tweenInfo2 = TweenInfo.new(0.55, Enum.EasingStyle.Quint, Enum.EasingDirection.Out)
 						local tweenInfo3 = TweenInfo.new(0.45, Enum.EasingStyle.Quint, Enum.EasingDirection.In)
-						_G.__4HubNotify = function(argument20, argument21)
-							if not _G.__4HubNotifEnabled then
+						_G.__RyftNotify = function(argument20, argument21)
+							if not _G.__RyftNotifEnabled then
 								return
 							end
 							layoutOrder += 1
@@ -543,22 +543,22 @@ do
 						end
 					end
 				end
-				_G.__4HubGetMover = function(parent)
+				_G.__RyftGetMover = function(parent)
 					if not parent then
 						return nil
 					end
-					local 4HubMover = parent:FindFirstChild("4HubMover")
-					if 4HubMover and 4HubMover:IsA("LinearVelocity") then
-						return 4HubMover
+					local RyftMover = parent:FindFirstChild("RyftMover")
+					if RyftMover and RyftMover:IsA("LinearVelocity") then
+						return RyftMover
 					end
-					local attachment = parent:FindFirstChild("4HubMoverAttachment")
+					local attachment = parent:FindFirstChild("RyftMoverAttachment")
 					if not (attachment and attachment:IsA("Attachment")) then
 						attachment = Instance.new("Attachment")
-						attachment.Name = "4HubMoverAttachment"
+						attachment.Name = "RyftMoverAttachment"
 						attachment.Parent = parent
 					end
 					local linearVelocity = Instance.new("LinearVelocity")
-					linearVelocity.Name = "4HubMover"
+					linearVelocity.Name = "RyftMover"
 					linearVelocity.Attachment0 = attachment
 					pcall(function()
 						linearVelocity.RelativeTo = Enum.ActuatorRelativeTo.World
@@ -595,13 +595,13 @@ do
 					linearVelocity.Parent = parent
 					return linearVelocity
 				end
-				_G.__4HubMove = function(argument22, argument23, argument24)
-					local value13 = _G.__4HubGetMover(argument22)
+				_G.__RyftMove = function(argument22, argument23, argument24)
+					local value13 = _G.__RyftGetMover(argument22)
 					if not value13 then
 						return
 					end
 					value13.Enabled = true
-					if value13:GetAttribute("4HubMode") == "Plane" then
+					if value13:GetAttribute("RyftMode") == "Plane" then
 						pcall(function()
 							value13.PlaneVelocity = Vector2.new(argument23, argument24)
 						end)
@@ -611,23 +611,23 @@ do
 						end)
 					end
 				end
-				_G.__4HubMoveStop = function(argument25, argument26)
+				_G.__RyftMoveStop = function(argument25, argument26)
 					if not argument25 then
 						return
 					end
-					local 4HubMover = argument25:FindFirstChild("4HubMover")
-					if 4HubMover and 4HubMover:IsA("LinearVelocity") then
-						if 4HubMover:GetAttribute("Mode") == "Plane" then
+					local RyftMover = argument25:FindFirstChild("RyftMover")
+					if RyftMover and RyftMover:IsA("LinearVelocity") then
+						if RyftMover:GetAttribute("Mode") == "Plane" then
 							pcall(function()
-								4HubMover.PlaneVelocity = Vector2.new(0, 0)
+								RyftMover.PlaneVelocity = Vector2.new(0, 0)
 							end)
 						else
 							pcall(function()
-								4HubMover.VectorVelocity = Vector3.new(0, argument25.AssemblyLinearVelocity.Y, 0)
+								RyftMover.VectorVelocity = Vector3.new(0, argument25.AssemblyLinearVelocity.Y, 0)
 							end)
 						end
 						if not argument26 then
-							4HubMover.Enabled = false
+							RyftMover.Enabled = false
 						end
 					end
 					if not argument26 then
@@ -643,42 +643,42 @@ do
 						end)
 					end
 				end
-				_G.__4HubAnimSpins = _G.__4HubAnimSpins or {}
-				_G.__4HubAnimPulses = _G.__4HubAnimPulses or {}
-				_G.__4HubSpin = function(argument27, argument28, argument29)
+				_G.__RyftAnimSpins = _G.__RyftAnimSpins or {}
+				_G.__RyftAnimPulses = _G.__RyftAnimPulses or {}
+				_G.__RyftSpin = function(argument27, argument28, argument29)
 					if argument27 then
-						_G.__4HubAnimSpins[#_G.__4HubAnimSpins + 1] = { g = argument27, s = argument28 or 90, guard = argument29 }
+						_G.__RyftAnimSpins[#_G.__RyftAnimSpins + 1] = { g = argument27, s = argument28 or 90, guard = argument29 }
 					end
 				end
-				_G.__4HubPulse = function(argument30)
+				_G.__RyftPulse = function(argument30)
 					if argument30 then
-						_G.__4HubAnimPulses[#_G.__4HubAnimPulses + 1] = argument30
+						_G.__RyftAnimPulses[#_G.__RyftAnimPulses + 1] = argument30
 					end
 				end
-				if not _G.__4HubAnimStarted then
-					_G.__4HubAnimStarted = true
+				if not _G.__RyftAnimStarted then
+					_G.__RyftAnimStarted = true
 					do
 						local entry3 = 0
 						RunService.RenderStepped:Connect(function(deltaTime)
-							if _G.__4HubDead then
+							if _G.__RyftDead then
 								return
 							end
 							entry3 += deltaTime or 0
-							if entry3 < (_G.__4HubBoostActive and 0.016666666666666666 or 0.0333) then
+							if entry3 < (_G.__RyftBoostActive and 0.016666666666666666 or 0.0333) then
 								return
 							end
 							entry3 = 0
 							local now2 = tick()
-							local 4HubAnimSpins = _G.__4HubAnimSpins
-							for i = 1, #4HubAnimSpins do
-								local entry4 = 4HubAnimSpins[i]
+							local RyftAnimSpins = _G.__RyftAnimSpins
+							for i = 1, #RyftAnimSpins do
+								local entry4 = RyftAnimSpins[i]
 								if entry4.g and entry4.g.Parent and (not entry4.guard or entry4.guard()) then
 									entry4.g.Rotation = now2 * entry4.s % 360
 								end
 							end
-							local 4HubAnimPulses = _G.__4HubAnimPulses
-							for i = 1, #4HubAnimPulses do
-								pcall(4HubAnimPulses[i], now2)
+							local RyftAnimPulses = _G.__RyftAnimPulses
+							for i = 1, #RyftAnimPulses do
+								pcall(RyftAnimPulses[i], now2)
 							end
 						end)
 					end
@@ -698,7 +698,7 @@ do
 						TargetControlsUI = true,
 						AdminPlayerListUI = true,
 						RiftBrainrotNotif = true,
-						4HubCustomPanel = true,
+						RyftCustomPanel = true,
 						NineP_GriefDetector = true,
 						ActionsPanelUI = true,
 						CommandCooldownUI = true,
@@ -713,7 +713,7 @@ do
 							end
 							if parent1:IsA("ScreenGui") then
 								local name = parent1.Name
-								local entry5 = options2[name] or name:sub(1, 4) == "4Hub"
+								local entry5 = options2[name] or name:sub(1, 4) == "Ryft"
 								if not entry5 then
 									local entry6 = "Rift"
 									entry5 = name:sub(1, 4) == entry6
@@ -737,7 +737,7 @@ do
 					end
 				end
 				do
-					local items, 4HubAccentOrig, items1, 4HubAccentCur, handleAction13, handleAction14
+					local items, RyftAccentOrig, items1, RyftAccentCur, handleAction13, handleAction14
 					do
 						local handleAction15
 						items = {
@@ -750,7 +750,7 @@ do
 							"HudSBlue",
 							"HudDBlue",
 						}
-						4HubAccentOrig = {
+						RyftAccentOrig = {
 							LightBlue = Color3.fromRGB(92, 165, 255),
 							DarkBlue = Color3.fromRGB(18, 38, 78),
 							BlueLine = Color3.fromRGB(60, 120, 220),
@@ -761,18 +761,18 @@ do
 							HudDBlue = Color3.fromRGB(16, 44, 96),
 						}
 						items1 = {}
-						4HubAccentCur = {}
+						RyftAccentCur = {}
 						for _, value14 in ipairs(items) do
 							do
-								local color, value15, value16 = Color3.toHSV(4HubAccentOrig[value14])
+								local color, value15, value16 = Color3.toHSV(RyftAccentOrig[value14])
 								items1[value14] = { s = value15, v = value16 }
 							end
-							4HubAccentCur[value14] = 4HubAccentOrig[value14]
+							RyftAccentCur[value14] = RyftAccentOrig[value14]
 						end
-						_G.__4HubAccentOrig = 4HubAccentOrig
-						_G.__4HubAccentCur = 4HubAccentCur
-						_G.__4HubEspTint = function(argument31)
-							local lightBlue = _G.__4HubAccentCur and _G.__4HubAccentCur.LightBlue
+						_G.__RyftAccentOrig = RyftAccentOrig
+						_G.__RyftAccentCur = RyftAccentCur
+						_G.__RyftEspTint = function(argument31)
+							local lightBlue = _G.__RyftAccentCur and _G.__RyftAccentCur.LightBlue
 							if not lightBlue then
 								return argument31
 							end
@@ -854,8 +854,8 @@ do
 						do
 							local function handleAction17(argument37)
 								for _, value25 in ipairs(items) do
-									if handleAction13(argument37, 4HubAccentOrig[value25]) or handleAction13(argument37, 4HubAccentCur[value25]) then
-										return 4HubAccentCur[value25]
+									if handleAction13(argument37, RyftAccentOrig[value25]) or handleAction13(argument37, RyftAccentCur[value25]) then
+										return RyftAccentCur[value25]
 									end
 								end
 								return nil
@@ -867,27 +867,27 @@ do
 							end)
 						end
 					end
-					_G.__4HubThemeFollowers = _G.__4HubThemeFollowers or {}
-					_G.__4HubOnTheme = function(argument38)
+					_G.__RyftThemeFollowers = _G.__RyftThemeFollowers or {}
+					_G.__RyftOnTheme = function(argument38)
 						if type(argument38) ~= "function" then
 							return
 						end
-						_G.__4HubThemeFollowers[#_G.__4HubThemeFollowers + 1] = argument38
-						pcall(argument38, 4HubAccentCur)
+						_G.__RyftThemeFollowers[#_G.__RyftThemeFollowers + 1] = argument38
+						pcall(argument38, RyftAccentCur)
 					end
 					do
 						local function handleAction18()
-							for _, 4HubThemeFollower in ipairs(_G.__4HubThemeFollowers) do
-								pcall(4HubThemeFollower, 4HubAccentCur)
+							for _, RyftThemeFollower in ipairs(_G.__RyftThemeFollowers) do
+								pcall(RyftThemeFollower, RyftAccentCur)
 							end
 						end
-						_G.__4HubEspItems = _G.__4HubEspItems or {}
-						_G.__4HubEspBind = function(argument39, argument40, argument41, argument42)
+						_G.__RyftEspItems = _G.__RyftEspItems or {}
+						_G.__RyftEspBind = function(argument39, argument40, argument41, argument42)
 							if not argument39 then
 								return
 							end
 							local function handleAction19()
-								local value26 = _G.__4HubEspTint(argument41)
+								local value26 = _G.__RyftEspTint(argument41)
 								pcall(function()
 									if argument42 == "seq" then
 										argument39[argument40] = ColorSequence.new(value26)
@@ -897,81 +897,81 @@ do
 								end)
 							end
 							handleAction19()
-							_G.__4HubEspItems[#_G.__4HubEspItems + 1] = { inst = argument39, apply = handleAction19 }
+							_G.__RyftEspItems[#_G.__RyftEspItems + 1] = { inst = argument39, apply = handleAction19 }
 						end
-						_G.__4HubOnTheme(function()
-							local 4HubEspItems = _G.__4HubEspItems
-							local number6 = #4HubEspItems
+						_G.__RyftOnTheme(function()
+							local RyftEspItems = _G.__RyftEspItems
+							local number6 = #RyftEspItems
 							local entry9 = 0
 							for i = 1, number6 do
-								local entry10 = 4HubEspItems[i]
+								local entry10 = RyftEspItems[i]
 								if entry10.inst and entry10.inst.Parent then
 									entry9 += 1
-									4HubEspItems[entry9] = entry10
+									RyftEspItems[entry9] = entry10
 									pcall(entry10.apply)
 								end
 							end
 							for i = entry9 + 1, number6 do
-								4HubEspItems[i] = nil
+								RyftEspItems[i] = nil
 							end
 						end)
-						local lightBlue = 4HubAccentOrig.LightBlue
-						local darkBlue = 4HubAccentOrig.DarkBlue
+						local lightBlue = RyftAccentOrig.LightBlue
+						local darkBlue = RyftAccentOrig.DarkBlue
 						local value27 = _G
-						_G.__4HubPrimary = lightBlue
-						value27.__4HubSecondary = darkBlue
-						_G.__4HubApplyColors = function(4HubPrimary, 4HubSecondary)
-							4HubPrimary = 4HubPrimary or lightBlue
-							4HubSecondary = 4HubSecondary or darkBlue
-							local value = select(1, Color3.toHSV(4HubPrimary))
+						_G.__RyftPrimary = lightBlue
+						value27.__RyftSecondary = darkBlue
+						_G.__RyftApplyColors = function(RyftPrimary, RyftSecondary)
+							RyftPrimary = RyftPrimary or lightBlue
+							RyftSecondary = RyftSecondary or darkBlue
+							local value = select(1, Color3.toHSV(RyftPrimary))
 							local items4 = {}
 							for _, value28 in ipairs(items) do
 								if value28 == "LightBlue" then
-									items4[value28] = 4HubPrimary
+									items4[value28] = RyftPrimary
 								elseif value28 == "DarkBlue" then
-									items4[value28] = 4HubSecondary
+									items4[value28] = RyftSecondary
 								else
 									items4[value28] = Color3.fromHSV(value, items1[value28].s, items1[value28].v)
 								end
 							end
 							handleAction14(function(argument43)
 								for _, value29 in ipairs(items) do
-									if handleAction13(argument43, 4HubAccentOrig[value29]) or handleAction13(argument43, 4HubAccentCur[value29]) then
+									if handleAction13(argument43, RyftAccentOrig[value29]) or handleAction13(argument43, RyftAccentCur[value29]) then
 										return items4[value29]
 									end
 								end
 								return nil
 							end)
 							for _, value30 in ipairs(items) do
-								4HubAccentCur[value30] = items4[value30]
+								RyftAccentCur[value30] = items4[value30]
 							end
-							themeColors.LightBlue = 4HubAccentCur.LightBlue
-							themeColors.DarkBlue = 4HubAccentCur.DarkBlue
-							themeColors.BlueLine = 4HubAccentCur.BlueLine
-							lightBlue = 4HubPrimary
-							darkBlue = 4HubSecondary
+							themeColors.LightBlue = RyftAccentCur.LightBlue
+							themeColors.DarkBlue = RyftAccentCur.DarkBlue
+							themeColors.BlueLine = RyftAccentCur.BlueLine
+							lightBlue = RyftPrimary
+							darkBlue = RyftSecondary
 							local value31 = _G
-							_G.__4HubPrimary = 4HubPrimary
-							value31.__4HubSecondary = 4HubSecondary
+							_G.__RyftPrimary = RyftPrimary
+							value31.__RyftSecondary = RyftSecondary
 							handleAction18()
 						end
-						_G.__4HubApplyHue = function(argument44)
-							local 4HubThemeHue = argument44 % 1
+						_G.__RyftApplyHue = function(argument44)
+							local RyftThemeHue = argument44 % 1
 							local color = Color3.fromHSV
 							local s = items1.DarkBlue.s
 							local v1 = items1.DarkBlue.v
-							_G.__4HubApplyColors(Color3.fromHSV(4HubThemeHue, items1.LightBlue.s, items1.LightBlue.v), color(4HubThemeHue, s, v1))
-							_G.__4HubThemeHue = 4HubThemeHue
+							_G.__RyftApplyColors(Color3.fromHSV(RyftThemeHue, items1.LightBlue.s, items1.LightBlue.v), color(RyftThemeHue, s, v1))
+							_G.__RyftThemeHue = RyftThemeHue
 						end
-						_G.__4HubGetPrimary = function()
+						_G.__RyftGetPrimary = function()
 							return lightBlue
 						end
-						_G.__4HubGetSecondary = function()
+						_G.__RyftGetSecondary = function()
 							return darkBlue
 						end
 					end
-					_G.__4HubGetHue = function()
-						return _G.__4HubThemeHue or select(1, Color3.toHSV(4HubAccentOrig.LightBlue))
+					_G.__RyftGetHue = function()
+						return _G.__RyftThemeHue or select(1, Color3.toHSV(RyftAccentOrig.LightBlue))
 					end
 				end
 				udim2 = UDim2.fromOffset(660, 452)
@@ -1017,7 +1017,7 @@ do
 				end
 				uiGradient.Color = colorSequence(items5)
 				uiGradient.Parent = uiStroke
-				_G.__4HubSpin(uiGradient, 90)
+				_G.__RyftSpin(uiGradient, 90)
 			end
 			frame2 = Instance.new("Frame")
 			frame2.Name = "Sidebar"
@@ -1077,7 +1077,7 @@ do
 				instance2.Position = UDim2.fromOffset(66, 16)
 				instance2.BackgroundTransparency = 1
 				instance2.Font = gothamBold
-				instance2.Text = "4Hub HUB"
+				instance2.Text = "Ryft HUB"
 				instance2.TextColor3 = themeColors.White
 				instance2.TextSize = 15
 				instance2.TextXAlignment = Enum.TextXAlignment.Left
@@ -1225,7 +1225,7 @@ do
 						textLabel.Position = UDim2.fromOffset(14, 0)
 						textLabel.Size = UDim2.new(1, -50, 1, 0)
 						textLabel.Font = gothamBold
-						textLabel.Text = "4Hub HUB"
+						textLabel.Text = "Ryft HUB"
 						textLabel.TextColor3 = themeColors.White
 						textLabel.TextSize = 13
 						textLabel.TextXAlignment = Enum.TextXAlignment.Left
@@ -1409,14 +1409,14 @@ do
 							local number8 = math.clamp(argument47, 0, 1)
 							local color3
 							if number8 <= 0.1 then
-								if _G.__4HubApplyColors then
-									_G.__4HubApplyColors(color, color2)
+								if _G.__RyftApplyColors then
+									_G.__RyftApplyColors(color, color2)
 								end
 								color3 = color2
 							else
 								local number9 = (number8 - 0.1) / 0.9
-								if _G.__4HubApplyHue then
-									_G.__4HubApplyHue(number9)
+								if _G.__RyftApplyHue then
+									_G.__RyftApplyHue(number9)
 								end
 								color3 = Color3.fromHSV(number9, 0.85, 1)
 							end
@@ -1679,7 +1679,7 @@ do
 							end)
 						end
 						local function handleAction24()
-							local lightBlue = _G.__4HubAccentCur and _G.__4HubAccentCur.LightBlue or themeColors.LightBlue
+							local lightBlue = _G.__RyftAccentCur and _G.__RyftAccentCur.LightBlue or themeColors.LightBlue
 							local value45 = TweenService
 							local create = value45.Create
 							local tweenInfo2 = TweenInfo.new(0.18)
@@ -1694,8 +1694,8 @@ do
 								Position = defaultEnabled2 and UDim2.new(1, -17, 0.5, -7) or UDim2.new(0, 3, 0.5, -7),
 							}):Play()
 						end
-						if _G.__4HubOnTheme then
-							_G.__4HubOnTheme(function()
+						if _G.__RyftOnTheme then
+							_G.__RyftOnTheme(function()
 								handleAction24()
 							end)
 						end
@@ -1703,8 +1703,8 @@ do
 							defaultEnabled2 = not defaultEnabled2
 							handleAction24()
 							saveToggle(text, defaultEnabled2)
-							if _G.__4HubNotify then
-								_G.__4HubNotify(text, defaultEnabled2 and "Enabled" or "Disabled")
+							if _G.__RyftNotify then
+								_G.__RyftNotify(text, defaultEnabled2 and "Enabled" or "Disabled")
 							end
 							if onChanged then
 								task.spawn(onChanged, defaultEnabled2)
@@ -1737,8 +1737,8 @@ do
 								return defaultEnabled2
 							end,
 						}
-						_G.__4HubToggles = _G.__4HubToggles or {}
-						_G.__4HubToggles[text] = options11
+						_G.__RyftToggles = _G.__RyftToggles or {}
+						_G.__RyftToggles[text] = options11
 						return options11
 					end
 					createKeybindToggle = function(parent, text, layoutOrder, showShortcut, shortcutKey1, onChanged1, onShortcut1, defaultEnabled1)
@@ -1968,8 +1968,8 @@ do
 						createUICorner(textButton4, 6)
 						createUIStroke(textButton4, themeColors.LightBlue, 1).Transparency = 0.4
 						textButton4.MouseButton1Click:Connect(function()
-							if _G.__4HubNotify then
-								_G.__4HubNotify(text, (text2 or "Run") .. " pressed")
+							if _G.__RyftNotify then
+								_G.__RyftNotify(text, (text2 or "Run") .. " pressed")
 							end
 							if argument54 then
 								argument54()
@@ -2175,7 +2175,7 @@ do
 						instance3.InputBegan:Connect(function(input)
 							if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
 								enabled9 = true
-								_G.__4HubSliderDragging = true
+								_G.__RyftSliderDragging = true
 								TweenService:Create(frame9, TweenInfo.new(0.1), { Size = UDim2.fromOffset(18, 18) }):Play()
 								handleAction31(input.Position.X)
 							end
@@ -2184,10 +2184,10 @@ do
 							if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
 								if enabled9 then
 									enabled9 = false
-									_G.__4HubSliderDragging = false
+									_G.__RyftSliderDragging = false
 									TweenService:Create(frame9, TweenInfo.new(0.1), { Size = UDim2.fromOffset(14, 14) }):Play()
-									if _G.__4HubNotify then
-										_G.__4HubNotify(slider, "Set to " .. handleAction29(value54))
+									if _G.__RyftNotify then
+										_G.__RyftNotify(slider, "Set to " .. handleAction29(value54))
 									end
 								end
 							end
@@ -2205,8 +2205,8 @@ do
 								return value54
 							end,
 						}
-						_G.__4HubSliders = _G.__4HubSliders or {}
-						_G.__4HubSliders[slider] = options18
+						_G.__RyftSliders = _G.__RyftSliders or {}
+						_G.__RyftSliders[slider] = options18
 						return options18
 					end
 					createLabel = function(parent, text1, layoutOrder)
@@ -2607,7 +2607,7 @@ do
 			createSection(Main, entry12, lightBlue, darkBlue, blueLine, value64)
 		end
 		createToggle(Main, "Auto Unlock On Steal", handleAction4(), false, function(argument74)
-			_G.__4HubAutoUnlock = argument74 and true or false
+			_G.__RyftAutoUnlock = argument74 and true or false
 		end)
 		createToggle(Main, "Unlock Buttons", handleAction4(), false, function(argument75)
 			handleAction35(argument75)
@@ -2632,14 +2632,14 @@ do
 					["Default To Highest"] = "Highest",
 					["Default To Priority"] = "Priority",
 				}
-				_G.__4HubSetGrabMode = function(4HubGrabMode)
-					if 4HubGrabMode ~= "Nearest" and 4HubGrabMode ~= "Highest" and 4HubGrabMode ~= "Priority" then
+				_G.__RyftSetGrabMode = function(RyftGrabMode)
+					if RyftGrabMode ~= "Nearest" and RyftGrabMode ~= "Highest" and RyftGrabMode ~= "Priority" then
 						return
 					end
-					_G.__4HubGrabMode = 4HubGrabMode
-					saveChoice("GrabMode", 4HubGrabMode)
-					if _G.__4HubTC_ApplyMode then
-						pcall(_G.__4HubTC_ApplyMode, 4HubGrabMode)
+					_G.__RyftGrabMode = RyftGrabMode
+					saveChoice("GrabMode", RyftGrabMode)
+					if _G.__RyftTC_ApplyMode then
+						pcall(_G.__RyftTC_ApplyMode, RyftGrabMode)
 					end
 				end
 				local function handleAction42(argument76, argument77)
@@ -2653,10 +2653,10 @@ do
 								end
 							end
 							enabled12 = false
-							if _G.__4HubReady then
+							if _G.__RyftReady then
 								local entry14 = items15[argument76]
 								if entry14 then
-									_G.__4HubSetGrabMode(entry14)
+									_G.__RyftSetGrabMode(entry14)
 								end
 							end
 						end
@@ -2670,7 +2670,7 @@ do
 				handleAction42("Default To Highest", false)
 				handleAction42("Default To Priority", false)
 			end
-			_G.__4HubGrabMode = getSavedChoice("GrabMode") or "Nearest"
+			_G.__RyftGrabMode = getSavedChoice("GrabMode") or "Nearest"
 			do
 				local entry15 = 2
 				local value68 = handleAction4()
@@ -2699,8 +2699,8 @@ do
 						if not entry16 then
 							return
 						end
-						if _G.__4HubKick then
-							pcall(_G.__4HubKick)
+						if _G.__RyftKick then
+							pcall(_G.__RyftKick)
 						end
 					end
 					handleAction44 = function(argument80)
@@ -2753,7 +2753,7 @@ do
 						entry16 = false
 						handleAction47()
 					end
-					_G.__4HubSetAutoKick = function(argument82)
+					_G.__RyftSetAutoKick = function(argument82)
 						if argument82 then
 							handleAction48()
 						else
@@ -2765,14 +2765,14 @@ do
 			do
 				local entry17 = false
 				createToggle(Main, "Auto Invis On Steal", handleAction4(), entry17, function(argument83)
-					if _G.__4HubSetAutoInvis then
-						_G.__4HubSetAutoInvis(argument83)
+					if _G.__RyftSetAutoInvis then
+						_G.__RyftSetAutoInvis(argument83)
 					end
 				end)
 			end
-			_G.__4HubAutoKickMainToggle = createToggle(Main, "Auto Kick On Steal", handleAction4(), false, function(argument84)
-				if _G.__4HubSetAutoKick then
-					_G.__4HubSetAutoKick(argument84)
+			_G.__RyftAutoKickMainToggle = createToggle(Main, "Auto Kick On Steal", handleAction4(), false, function(argument84)
+				if _G.__RyftSetAutoKick then
+					_G.__RyftSetAutoKick(argument84)
 				end
 			end)
 			handleAction38 = nil
@@ -2878,7 +2878,7 @@ do
 					end)
 					pcall(function()
 						if setfpscap then
-							_G.__4HubOldFpsCap = _G.__4HubOldFpsCap or getfpscap and getfpscap() or 60
+							_G.__RyftOldFpsCap = _G.__RyftOldFpsCap or getfpscap and getfpscap() or 60
 							setfpscap(240)
 						end
 					end)
@@ -2920,8 +2920,8 @@ do
 				local handleAction51, handleAction52, handleAction53
 				handleAction51 = function()
 					pcall(function()
-						if setfpscap and _G.__4HubOldFpsCap then
-							setfpscap(_G.__4HubOldFpsCap)
+						if setfpscap and _G.__RyftOldFpsCap then
+							setfpscap(_G.__RyftOldFpsCap)
 						end
 					end)
 					pcall(function()
@@ -2936,7 +2936,7 @@ do
 					end
 				end
 				handleAction52 = function(argument86)
-					if _G.__4HubLocalChar and argument86:IsDescendantOf(_G.__4HubLocalChar) then
+					if _G.__RyftLocalChar and argument86:IsDescendantOf(_G.__RyftLocalChar) then
 						return
 					end
 					if argument86:FindFirstAncestor("AnimalPodiums") then
@@ -3041,9 +3041,9 @@ do
 						end
 					end
 				end
-				local function 4HubSetFpsBoost(argument88)
+				local function RyftSetFpsBoost(argument88)
 					entry13 += 1
-					_G.__4HubBoostActive = argument88 and true or false
+					_G.__RyftBoostActive = argument88 and true or false
 					if connection_ then
 						connection_:Disconnect()
 						connection_ = nil
@@ -3078,9 +3078,9 @@ do
 						end
 					end)
 				end
-				_G.__4HubSetFpsBoost = 4HubSetFpsBoost
+				_G.__RyftSetFpsBoost = RyftSetFpsBoost
 				createToggle(Misc, "FPS Boost", handleAction39(), false, function(argument89)
-					4HubSetFpsBoost(argument89)
+					RyftSetFpsBoost(argument89)
 				end)
 			end
 			do
@@ -3092,10 +3092,10 @@ do
 					touchEnabled = service8.TouchEnabled and not service8.KeyboardEnabled and not service8.MouseEnabled
 				end
 				do
-					local function 4HubCrazyOptimize(argument90)
-						if _G.__4HubSetFpsBoost then
+					local function RyftCrazyOptimize(argument90)
+						if _G.__RyftSetFpsBoost then
 							pcall(function()
-								_G.__4HubSetFpsBoost(argument90)
+								_G.__RyftSetFpsBoost(argument90)
 							end)
 						end
 						if not argument90 then
@@ -3131,9 +3131,9 @@ do
 							end
 						end)
 					end
-					_G.__4HubCrazyOptimize = 4HubCrazyOptimize
-					_G.__4HubCrazyOptToggle = createToggle(Misc, "Crazy Optimize (max FPS)", handleAction39(), false, function(argument91)
-						4HubCrazyOptimize(argument91)
+					_G.__RyftCrazyOptimize = RyftCrazyOptimize
+					_G.__RyftCrazyOptToggle = createToggle(Misc, "Crazy Optimize (max FPS)", handleAction39(), false, function(argument91)
+						RyftCrazyOptimize(argument91)
 					end)
 				end
 			end
@@ -3143,7 +3143,7 @@ do
 				enabled13 = false
 				do
 					local function handleAction55()
-						if _G.__4HubDead then
+						if _G.__RyftDead then
 							return
 						end
 						if not enabled13 then
@@ -3475,13 +3475,13 @@ do
 		end)
 	end
 	createToggle(Misc, "Line To Best Brainrot", handleAction39(), false, function(argument111)
-		if _G.__4HubSetBrainrotLine then
-			_G.__4HubSetBrainrotLine(argument111)
+		if _G.__RyftSetBrainrotLine then
+			_G.__RyftSetBrainrotLine(argument111)
 		end
 	end)
 	createToggle(Misc, "Anti Player Collision", handleAction39(), false, function(argument112)
-		if _G.__4HubSetAntiCollision then
-			_G.__4HubSetAntiCollision(argument112)
+		if _G.__RyftSetAntiCollision then
+			_G.__RyftSetAntiCollision(argument112)
 		end
 	end)
 	do
@@ -3502,7 +3502,7 @@ do
 				end
 			end
 		end
-		_G.__4HubSetAntiCollision = function(argument114)
+		_G.__RyftSetAntiCollision = function(argument114)
 			local argument1141 = argument114 and true or false
 			if argument1141 == enabled15 then
 				return
@@ -3514,7 +3514,7 @@ do
 				end
 				local number19 = 0
 				connection_ = RunService2.Heartbeat:Connect(function(deltaTime)
-					if _G.__4HubDead or not enabled15 then
+					if _G.__RyftDead or not enabled15 then
 						return
 					end
 					number19 += deltaTime or 0
@@ -3528,7 +3528,7 @@ do
 						end
 					end
 				end)
-				_G.__4HubOnLeave(function()
+				_G.__RyftOnLeave(function()
 					if connection_ then
 						pcall(function()
 							connection_:Disconnect()
@@ -3554,10 +3554,10 @@ do
 	end
 	do
 		local entry25 = false
-		createToggle(Misc, "Hide Admin Panel GUI", handleAction39(), entry25, function(4HubAdminHidden)
-			_G.__4HubAdminHidden = 4HubAdminHidden
+		createToggle(Misc, "Hide Admin Panel GUI", handleAction39(), entry25, function(RyftAdminHidden)
+			_G.__RyftAdminHidden = RyftAdminHidden
 			if _G.setAdminPanelHidden then
-				_G.setAdminPanelHidden(4HubAdminHidden)
+				_G.setAdminPanelHidden(RyftAdminHidden)
 			end
 		end)
 	end
@@ -3619,8 +3619,8 @@ do
 			createSection(Misc, "Mobile Helpers", lightBlue, darkBlue, blueLine, value78)
 		end
 		createToggle(Misc, "Custom Panel", handleAction39(), false, function(argument122)
-			if _G.__4HubShowCustomPanel then
-				_G.__4HubShowCustomPanel(argument122)
+			if _G.__RyftShowCustomPanel then
+				_G.__RyftShowCustomPanel(argument122)
 			end
 		end)
 		handleAction = function(parent, text, layoutOrder, backgroundColor3, argument123)
@@ -3637,8 +3637,8 @@ do
 			createUICorner(instance2, 10)
 			createUIStroke(instance2, themeColors.White, 1).Transparency = 0.65
 			instance2.MouseButton1Click:Connect(function()
-				if _G.__4HubNotify then
-					_G.__4HubNotify(tostring(instance2.Text):gsub("^%s+", ""), "Activated")
+				if _G.__RyftNotify then
+					_G.__RyftNotify(tostring(instance2.Text):gsub("^%s+", ""), "Activated")
 				end
 				if argument123 then
 					argument123()
@@ -3851,8 +3851,8 @@ do
 					if not beam then
 						beam = Instance.new("Beam")
 						beam.Name = "LineToBase_Beam"
-						if _G.__4HubEspBind then
-							_G.__4HubEspBind(beam, "Color", Color3.fromRGB(120, 200, 255), "seq")
+						if _G.__RyftEspBind then
+							_G.__RyftEspBind(beam, "Color", Color3.fromRGB(120, 200, 255), "seq")
 						else
 							beam.Color = ColorSequence.new(Color3.fromRGB(120, 200, 255))
 						end
@@ -3920,10 +3920,10 @@ do
 			end
 		end
 	end
-	_G.__4HubEspGuiHolder = function()
-		local 4HubEspGui = _G.__4HubEspGui
-		if 4HubEspGui and 4HubEspGui.Parent then
-			return 4HubEspGui
+	_G.__RyftEspGuiHolder = function()
+		local RyftEspGui = _G.__RyftEspGui
+		if RyftEspGui and RyftEspGui.Parent then
+			return RyftEspGui
 		end
 		local hui = nil
 		if not pcall(function()
@@ -3937,24 +3937,24 @@ do
 		screenGui2.DisplayOrder = -1
 		screenGui2.IgnoreGuiInset = true
 		screenGui2.Parent = hui
-		_G.__4HubEspGui = screenGui2
+		_G.__RyftEspGui = screenGui2
 		return screenGui2
 	end
-	_G.__4HubEspWorldHolder = function()
+	_G.__RyftEspWorldHolder = function()
 		local currentCamera = workspace.CurrentCamera
-		local 4HubEspWorld = _G.__4HubEspWorld
-		if 4HubEspWorld and 4HubEspWorld.Parent and 4HubEspWorld.Parent == currentCamera then
-			return 4HubEspWorld
+		local RyftEspWorld = _G.__RyftEspWorld
+		if RyftEspWorld and RyftEspWorld.Parent and RyftEspWorld.Parent == currentCamera then
+			return RyftEspWorld
 		end
-		if 4HubEspWorld then
+		if RyftEspWorld then
 			pcall(function()
-				4HubEspWorld:Destroy()
+				RyftEspWorld:Destroy()
 			end)
 		end
 		local instance2 = Instance.new("Folder")
 		instance2.Name = "\5"
 		instance2.Parent = currentCamera
-		_G.__4HubEspWorld = instance2
+		_G.__RyftEspWorld = instance2
 		return instance2
 	end
 	do
@@ -3969,7 +3969,7 @@ do
 			handleAction75()
 		end)
 		task.spawn(function()
-			while not _G.__4HubDead do
+			while not _G.__RyftDead do
 				task.wait(2)
 				if localPlayer1.DevCameraOcclusionMode ~= Enum.DevCameraOcclusionMode.Invisicam then
 					handleAction75()
@@ -4002,12 +4002,12 @@ do
 			billboardGui.StudsOffset = Vector3.new(0, 3, 0)
 			billboardGui.AlwaysOnTop = true
 			billboardGui.MaxDistance = 1e9
-			billboardGui.Parent = _G.__4HubEspGuiHolder()
+			billboardGui.Parent = _G.__RyftEspGuiHolder()
 			local instance2 = Instance.new("TextLabel")
 			instance2.BackgroundTransparency = 1
 			instance2.Size = UDim2.fromScale(1, 1)
 			instance2.Font = Enum.Font.GothamBlack
-			instance2.Text = "4Hub STAFF"
+			instance2.Text = "Ryft STAFF"
 			instance2.TextSize = 22
 			instance2.TextColor3 = Color3.fromRGB(255, 210, 45)
 			instance2.TextStrokeTransparency = 0.25
@@ -4137,7 +4137,7 @@ do
 			part.CanTouch = entry31
 			part.Transparency = 1
 			part.Size = Vector3.new(1, 1, 1)
-			part.Parent = _G.__4HubEspWorldHolder()
+			part.Parent = _G.__RyftEspWorldHolder()
 			local billboardGui = Instance.new("BillboardGui")
 			billboardGui.Name = "\5"
 			billboardGui.Adornee = part
@@ -4147,7 +4147,7 @@ do
 			billboardGui.AlwaysOnTop = true
 			billboardGui.LightInfluence = 0
 			billboardGui.Enabled = false
-			billboardGui.Parent = _G.__4HubEspGuiHolder()
+			billboardGui.Parent = _G.__RyftEspGuiHolder()
 			local frame5 = Instance.new("Frame", billboardGui)
 			frame5.Size = UDim2.fromScale(1, 1)
 			frame5.BackgroundColor3 = options23.BgDark
@@ -4203,8 +4203,8 @@ do
 			textLabel.Font = gothamBlack
 			textLabel.Text = value86 .. " NEXT BASE " .. value86
 			textLabel.TextScaled = true
-			if _G.__4HubEspBind then
-				_G.__4HubEspBind(textLabel, "TextColor3", options23.LightBlue, "color3")
+			if _G.__RyftEspBind then
+				_G.__RyftEspBind(textLabel, "TextColor3", options23.LightBlue, "color3")
 			else
 				textLabel.TextColor3 = options23.LightBlue
 			end
@@ -4340,20 +4340,20 @@ do
 		end
 		folder = Instance.new("Folder")
 		folder.Name = "\5"
-		folder.Parent = _G.__4HubEspWorldHolder()
+		folder.Parent = _G.__RyftEspWorldHolder()
 		if folder2 then
 			pcall(function()
 				folder2:Destroy()
 			end)
 		end
-		local value103 = workspace:FindFirstChild("4HubPlotCollision")
+		local value103 = workspace:FindFirstChild("RyftPlotCollision")
 		if value103 then
 			pcall(function()
 				value103:Destroy()
 			end)
 		end
 		folder2 = Instance.new("Folder")
-		folder2.Name = "4HubPlotCollision"
+		folder2.Name = "RyftPlotCollision"
 		folder2.Parent = workspace
 	end
 	local function handleAction85(cFrame, size)
@@ -4412,9 +4412,9 @@ do
 		part.Parent = folder
 		local instance2 = Instance.new("SelectionBox")
 		instance2.Adornee = part
-		if _G.__4HubEspBind then
-			_G.__4HubEspBind(instance2, "Color3", color, "color3")
-			_G.__4HubEspBind(instance2, "SurfaceColor3", color, "color3")
+		if _G.__RyftEspBind then
+			_G.__RyftEspBind(instance2, "Color3", color, "color3")
+			_G.__RyftEspBind(instance2, "SurfaceColor3", color, "color3")
 		else
 			instance2.Color3 = color
 			instance2.SurfaceColor3 = color
@@ -4634,13 +4634,13 @@ do
 					end
 					folder2 = nil
 				end
-				_G.__4HubSetPlotMode = function(argument141)
+				_G.__RyftSetPlotMode = function(argument141)
 					text3 = argument141
 					if enabled3 then
 						handleAction96()
 					end
 				end
-				_G.__4HubSetPlotESP = function(argument142)
+				_G.__RyftSetPlotESP = function(argument142)
 					if argument142 then
 						if enabled3 then
 							return
@@ -4677,26 +4677,26 @@ do
 					local instance4 = Instance.new("SelectionBox")
 					instance4.Name = "\5"
 					instance4.Adornee = adornee
-					if _G.__4HubEspBind then
-						_G.__4HubEspBind(instance4, "Color3", color, "color3")
+					if _G.__RyftEspBind then
+						_G.__RyftEspBind(instance4, "Color3", color, "color3")
 					else
 						instance4.Color3 = color
 					end
 					instance4.LineThickness = 0.01
-					instance4.Parent = _G.__4HubEspWorldHolder()
+					instance4.Parent = _G.__RyftEspWorldHolder()
 					local billboardGui = Instance.new("BillboardGui")
 					billboardGui.Name = "\5"
 					billboardGui.Adornee = adornee
 					billboardGui.Size = UDim2.new(0, 250, 0, 50)
 					billboardGui.StudsOffset = Vector3.new(0, 2.5, 0)
 					billboardGui.AlwaysOnTop = true
-					billboardGui.Parent = _G.__4HubEspGuiHolder()
+					billboardGui.Parent = _G.__RyftEspGuiHolder()
 					local textLabel = Instance.new("TextLabel")
 					textLabel.Size = UDim2.new(1, 0, 1, 0)
 					textLabel.BackgroundTransparency = 1
 					textLabel.Text = value119 .. "'s Subspace Mine"
-					if _G.__4HubEspBind then
-						_G.__4HubEspBind(textLabel, "TextColor3", color2, "color3")
+					if _G.__RyftEspBind then
+						_G.__RyftEspBind(textLabel, "TextColor3", color2, "color3")
 					else
 						textLabel.TextColor3 = color2
 					end
@@ -4794,7 +4794,7 @@ do
 				billboardGui.AlwaysOnTop = true
 				billboardGui.Adornee = adornee
 				billboardGui.MaxDistance = 1000
-				billboardGui.Parent = _G.__4HubEspGuiHolder()
+				billboardGui.Parent = _G.__RyftEspGuiHolder()
 				local textLabel = Instance.new("TextLabel")
 				textLabel.Size = UDim2.new(1, 0, 1, 0)
 				textLabel.BackgroundTransparency = 1
@@ -4901,9 +4901,9 @@ do
 				handleAction94(adornee)
 				local instance4 = Instance.new("Highlight")
 				instance4.Name = "\5"
-				if _G.__4HubEspBind then
-					_G.__4HubEspBind(instance4, "FillColor", color, "color3")
-					_G.__4HubEspBind(instance4, "OutlineColor", color2, "color3")
+				if _G.__RyftEspBind then
+					_G.__RyftEspBind(instance4, "FillColor", color, "color3")
+					_G.__RyftEspBind(instance4, "OutlineColor", color2, "color3")
 				else
 					instance4.FillColor = color
 					instance4.OutlineColor = color2
@@ -4912,7 +4912,7 @@ do
 				instance4.OutlineTransparency = 0
 				instance4.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
 				instance4.Adornee = adornee
-				instance4.Parent = _G.__4HubEspGuiHolder()
+				instance4.Parent = _G.__RyftEspGuiHolder()
 				items27[adornee] = instance4
 				return
 			end
@@ -5065,13 +5065,13 @@ do
 		do
 			local RunService2 = game:GetService("RunService")
 			local connection_ = nil
-			_G.__4HubSetFloat = function(argument151)
+			_G.__RyftSetFloat = function(argument151)
 				if argument151 then
 					if connection_ then
 						return
 					end
 					connection_ = RunService2.PreSimulation:Connect(function()
-						if _G.__4HubDead then
+						if _G.__RyftDead then
 							return
 						end
 						local character = localPlayer1.Character
@@ -5369,11 +5369,11 @@ do
 							humanoidRootPart.AssemblyLinearVelocity = Vector3.new(0, humanoidRootPart.AssemblyLinearVelocity.Y, 0)
 						end)
 					end
-					_G.__4HubCarpetActive = false
+					_G.__RyftCarpetActive = false
 				end
 				value129:GetService("RunService").Heartbeat:Connect(function()
 					if not options24.enabled then
-						_G.__4HubCarpetActive = false
+						_G.__RyftCarpetActive = false
 						return
 					end
 					local character = localPlayer17.Character
@@ -5395,12 +5395,12 @@ do
 					end)
 					local moveDirection = humanoid.MoveDirection
 					if 0.01 < moveDirection.Magnitude then
-						_G.__4HubCarpetActive = true
+						_G.__RyftCarpetActive = true
 						pcall(function()
 							humanoidRootPart.AssemblyLinearVelocity = Vector3.new(moveDirection.X * options24.speed, humanoidRootPart.AssemblyLinearVelocity.Y, moveDirection.Z * options24.speed)
 						end)
 					else
-						_G.__4HubCarpetActive = false
+						_G.__RyftCarpetActive = false
 						pcall(function()
 							humanoidRootPart.AssemblyLinearVelocity = Vector3.new(0, humanoidRootPart.AssemblyLinearVelocity.Y, 0)
 						end)
@@ -5431,7 +5431,7 @@ do
 			local value133 = handleAction93()
 			createSection(service1, entry41, lightBlue, darkBlue, blueLine, value133)
 		end
-		_G.__4HubInfJumpToggle = createToggle(service1, "Infinite Jump", handleAction93(), false, function(argument162)
+		_G.__RyftInfJumpToggle = createToggle(service1, "Infinite Jump", handleAction93(), false, function(argument162)
 			handleAction112(argument162)
 		end)
 	end
@@ -5656,10 +5656,10 @@ do
 			end
 		end
 	end
-	_G.__4HubCarpetToggle = carpetSpeed
-	_G.__4HubFloatToggle = createToggle(service1, "Float", handleAction93(), false, function(argument165)
-		if _G.__4HubSetFloat then
-			_G.__4HubSetFloat(argument165)
+	_G.__RyftCarpetToggle = carpetSpeed
+	_G.__RyftFloatToggle = createToggle(service1, "Float", handleAction93(), false, function(argument165)
+		if _G.__RyftSetFloat then
+			_G.__RyftSetFloat(argument165)
 		end
 	end)
 	createToggle(service1, "No Animation", handleAction93(), false, function(argument166)
@@ -5678,12 +5678,12 @@ do
 	end
 	do
 		local entry46 = false
-		createToggle(service1, "Auto Reset On Balloon", handleAction93(), entry46, function(4HubAutoResetBalloon)
-			_G.__4HubAutoResetBalloon = 4HubAutoResetBalloon
+		createToggle(service1, "Auto Reset On Balloon", handleAction93(), entry46, function(RyftAutoResetBalloon)
+			_G.__RyftAutoResetBalloon = RyftAutoResetBalloon
 		end)
 	end
-	createToggle(service1, "Auto Reset On Morph", handleAction93(), false, function(4HubAutoResetMorph)
-		_G.__4HubAutoResetMorph = 4HubAutoResetMorph
+	createToggle(service1, "Auto Reset On Morph", handleAction93(), false, function(RyftAutoResetMorph)
+		_G.__RyftAutoResetMorph = RyftAutoResetMorph
 	end)
 	createToggle(service1, "Anti Effects", handleAction93(), false, function(argument167)
 		handleAction91(argument167)
@@ -5706,8 +5706,8 @@ do
 	do
 		local entry48 = false
 		createToggle(service1, "Brainrot ESP", handleAction93(), entry48, function(argument169)
-			if _G.__4HubSetBrainrotESP then
-				_G.__4HubSetBrainrotESP(argument169)
+			if _G.__RyftSetBrainrotESP then
+				_G.__RyftSetBrainrotESP(argument169)
 			end
 		end)
 	end
@@ -5822,8 +5822,8 @@ do
 					PlotESPMode = argument172
 					handleAction127()
 					saveChoice("PlotESPMode", argument172)
-					if _G.__4HubSetPlotMode then
-						_G.__4HubSetPlotMode(argument172)
+					if _G.__RyftSetPlotMode then
+						_G.__RyftSetPlotMode(argument172)
 					end
 				end
 				instance5.MouseButton1Click:Connect(handleAction129)
@@ -5857,12 +5857,12 @@ do
 					handleAction130()
 				end
 			end
-			if _G.__4HubSetPlotMode then
-				_G.__4HubSetPlotMode(PlotESPMode)
+			if _G.__RyftSetPlotMode then
+				_G.__RyftSetPlotMode(PlotESPMode)
 			end
 			createToggle(service1, "Plot ESP", handleAction93(), false, function(argument174)
-				if _G.__4HubSetPlotESP then
-					_G.__4HubSetPlotESP(argument174)
+				if _G.__RyftSetPlotESP then
+					_G.__RyftSetPlotESP(argument174)
 				end
 			end, false, handleAction131)
 		end
@@ -5873,13 +5873,13 @@ do
 			handleAction3(argument175)
 		end)
 		createToggle(service1, "Disable Brainrot Animations", handleAction93(), false, function(argument176)
-			if _G.__4HubSetNoBrainrotAnims then
-				_G.__4HubSetNoBrainrotAnims(argument176)
+			if _G.__RyftSetNoBrainrotAnims then
+				_G.__RyftSetNoBrainrotAnims(argument176)
 			end
 		end)
 		createToggle(service1, "Dark Sky", handleAction93(), false, function(argument177)
-			if _G.__4HubSetDarkSky then
-				_G.__4HubSetDarkSky(argument177)
+			if _G.__RyftSetDarkSky then
+				_G.__RyftSetDarkSky(argument177)
 			end
 		end)
 		do
@@ -5917,7 +5917,7 @@ do
 		end
 		local connection_ = nil
 		local entry50 = 0
-		_G.__4HubSetDisableAccessories = function(argument179)
+		_G.__RyftSetDisableAccessories = function(argument179)
 			enabled28 = argument179 and true or false
 			if enabled28 then
 				handleAction132()
@@ -5953,8 +5953,8 @@ do
 	do
 		local entry52 = false
 		createToggle(service1, "Anti Flasher", handleAction93(), entry52, function(argument180)
-			if _G.__4HubSetDisableAccessories then
-				_G.__4HubSetDisableAccessories(argument180)
+			if _G.__RyftSetDisableAccessories then
+				_G.__RyftSetDisableAccessories(argument180)
 			end
 		end)
 	end
@@ -5973,14 +5973,14 @@ do
 	local value144 = handleAction86()
 	createSection(Keybinds, "Keybinds", lightBlue, darkBlue, blueLine, value144)
 end
-_G.__4HubKick = function()
-	_G.__4HubLeaving = true
+_G.__RyftKick = function()
+	_G.__RyftLeaving = true
 	task.wait()
 	pcall(function()
 		game:Shutdown()
 	end)
 end
-_G.__4HubRejoin = function()
+_G.__RyftRejoin = function()
 	pcall(function()
 		game:GetService("TeleportService"):Teleport(game.PlaceId, game:GetService("Players").LocalPlayer)
 	end)
@@ -6102,7 +6102,7 @@ do
 						end
 						return nil
 					end
-					_G.__4HubRagdollSelf = function()
+					_G.__RyftRagdollSelf = function()
 						if enabled21 then
 							return
 						end
@@ -6149,7 +6149,7 @@ do
 						end)
 					end
 				end
-				_G.__4HubDropBrainrot = _G.__4HubRagdollSelf
+				_G.__RyftDropBrainrot = _G.__RyftRagdollSelf
 				localPlayer13.CharacterAdded:Connect(function()
 					enabled21 = false
 				end)
@@ -6157,7 +6157,7 @@ do
 					local localPlayer20 = game:GetService("Players").LocalPlayer
 					local playerGui_ = localPlayer20:WaitForChild("PlayerGui")
 					local enabled31 = false
-					_G.__4HubCloneSwitch = function()
+					_G.__RyftCloneSwitch = function()
 						if enabled31 then
 							return
 						end
@@ -6168,7 +6168,7 @@ do
 						end)
 					end
 				end
-				_G.__4HubInstantClone = _G.__4HubCloneSwitch
+				_G.__RyftInstantClone = _G.__RyftCloneSwitch
 				do
 					local players10 = game:GetService("Players")
 					service15 = game:GetService("RunService")
@@ -6185,7 +6185,7 @@ do
 							argument185.LocalTransparencyModifier = 1
 						end
 					end
-					_G.__4HubReset = function()
+					_G.__RyftReset = function()
 						if enabled33 then
 							return
 						end
@@ -6206,10 +6206,10 @@ do
 							local cameraType = currentCamera.CameraType
 							pcall(function()
 								currentCamera.CameraType = Enum.CameraType.Scriptable
-								service15:BindToRenderStep("4HubInstaResetCam", Enum.RenderPriority.Camera.Value + 1, function()
-									if _G.__4HubDead then
+								service15:BindToRenderStep("RyftInstaResetCam", Enum.RenderPriority.Camera.Value + 1, function()
+									if _G.__RyftDead then
 										pcall(function()
-											service15:UnbindFromRenderStep("4HubInstaResetCam")
+											service15:UnbindFromRenderStep("RyftInstaResetCam")
 										end)
 										return
 									end
@@ -6340,7 +6340,7 @@ do
 								end)
 							end
 							pcall(function()
-								service15:UnbindFromRenderStep("4HubInstaResetCam")
+								service15:UnbindFromRenderStep("RyftInstaResetCam")
 							end)
 							pcall(function()
 								currentCamera.CameraType = cameraType == Enum.CameraType.Scriptable and Enum.CameraType.Custom or cameraType
@@ -6357,22 +6357,22 @@ do
 					end
 				end
 			end
-			_G.4HubKeys = _G.4HubKeys or {}
+			_G.RyftKeys = _G.RyftKeys or {}
 			do
 				local function handleAction145(argument186)
 					return argument186 and argument186.Name or "None"
 				end
 				handleAction137 = function(argument187, argument188)
-					_G.4HubKeys[argument187] = handleAction145(argument188)
-					if _G.__4HubAPRefresh then
-						_G.__4HubAPRefresh()
+					_G.RyftKeys[argument187] = handleAction145(argument188)
+					if _G.__RyftAPRefresh then
+						_G.__RyftAPRefresh()
 					end
 				end
 			end
 			do
 				local y = Enum.KeyCode.Y
 				createKeybindToggle(Keybinds, "Kick", handleAction86(), true, y, function()
-					_G.__4HubKick()
+					_G.__RyftKick()
 				end, function(argument189)
 					handleAction137("Kick", argument189)
 				end)
@@ -6380,7 +6380,7 @@ do
 			do
 				local k = Enum.KeyCode.K
 				createKeybindToggle(Keybinds, "Rejoin", handleAction86(), true, k, function()
-					_G.__4HubRejoin()
+					_G.__RyftRejoin()
 				end, function(argument190)
 					handleAction137("Rejoin", argument190)
 				end)
@@ -6388,8 +6388,8 @@ do
 			do
 				local h = Enum.KeyCode.H
 				createKeybindToggle(Keybinds, "Float", handleAction86(), true, h, function()
-					if _G.__4HubFloatToggle then
-						_G.__4HubFloatToggle.Set(not _G.__4HubFloatToggle.Get())
+					if _G.__RyftFloatToggle then
+						_G.__RyftFloatToggle.Set(not _G.__RyftFloatToggle.Get())
 					end
 				end, function(argument191)
 					handleAction137("Float", argument191)
@@ -6399,8 +6399,8 @@ do
 				local entry56 = true
 				local n1 = Enum.KeyCode.N
 				createKeybindToggle(Keybinds, "Ragdoll", handleAction86(), entry56, n1, function()
-					if _G.__4HubRagdollSelf then
-						_G.__4HubRagdollSelf()
+					if _G.__RyftRagdollSelf then
+						_G.__RyftRagdollSelf()
 					end
 				end, function(argument192)
 					handleAction137("Ragdoll", argument192)
@@ -6409,8 +6409,8 @@ do
 			do
 				local g = Enum.KeyCode.G
 				createKeybindToggle(Keybinds, "Clone", handleAction86(), true, g, function()
-					if _G.__4HubCloneSwitch then
-						_G.__4HubCloneSwitch()
+					if _G.__RyftCloneSwitch then
+						_G.__RyftCloneSwitch()
 					end
 				end)
 			end
@@ -6425,8 +6425,8 @@ do
 			do
 				local v101 = Enum.KeyCode.V
 				createKeybindToggle(Keybinds, "Steal Speed Keybind", handleAction86(), true, v101, function()
-					if _G.__4HubToggleWalkSpeed then
-						_G.__4HubToggleWalkSpeed()
+					if _G.__RyftToggleWalkSpeed then
+						_G.__RyftToggleWalkSpeed()
 					elseif setWalkSpeedEnabled and WalkSpeedState then
 						setWalkSpeedEnabled(not WalkSpeedState.enabled)
 					end
@@ -6436,7 +6436,7 @@ do
 				local entry57 = true
 				local x = Enum.KeyCode.X
 				createKeybindToggle(Keybinds, "Reset", handleAction86(), entry57, x, function()
-					_G.__4HubReset()
+					_G.__RyftReset()
 				end, function(argument193)
 					handleAction137("Reset", argument193)
 				end)
@@ -6444,32 +6444,32 @@ do
 			do
 				local m = Enum.KeyCode.M
 				createKeybindToggle(Keybinds, "Click To AP", handleAction86(), true, m, function()
-					if _G.__4HubToggleClickAP then
-						_G.__4HubToggleClickAP()
+					if _G.__RyftToggleClickAP then
+						_G.__RyftToggleClickAP()
 					end
 				end)
 			end
 			do
 				local entry58 = true
 				createKeybindToggle(Keybinds, "Spam Base Owner", handleAction86(), entry58, nil, function()
-					if _G.__4HubSpamBaseOwner then
-						_G.__4HubSpamBaseOwner()
+					if _G.__RyftSpamBaseOwner then
+						_G.__RyftSpamBaseOwner()
 					end
 				end)
 			end
 			do
 				local p = Enum.KeyCode.P
 				createKeybindToggle(Keybinds, "Proximity AP", handleAction86(), true, p, function()
-					if _G.__4HubToggleProximityAP then
-						_G.__4HubToggleProximityAP()
+					if _G.__RyftToggleProximityAP then
+						_G.__RyftToggleProximityAP()
 					end
 				end)
 			end
 			do
 				local j = Enum.KeyCode.J
 				createKeybindToggle(Keybinds, "Job Joiner", handleAction86(), true, j, function()
-					if _G.__4HubJobJoinerToggle then
-						_G.__4HubJobJoinerToggle.Set(not _G.__4HubJobJoinerToggle.Get())
+					if _G.__RyftJobJoinerToggle then
+						_G.__RyftJobJoinerToggle.Set(not _G.__RyftJobJoinerToggle.Get())
 					end
 				end)
 			end
@@ -6684,8 +6684,8 @@ do
 						local value159 = handleAction147(text9)
 						handleAction149(value159)
 					end)
-					if _G.__4HubRegisterDrag then
-						_G.__4HubRegisterDrag(frame5, frame6, "JobIdWindow", UDim2.new(0.5, 0, 0.5, 0))
+					if _G.__RyftRegisterDrag then
+						_G.__RyftRegisterDrag(frame5, frame6, "JobIdWindow", UDim2.new(0.5, 0, 0.5, 0))
 					end
 					local enabled35 = false
 					local enabled36 = false
@@ -6862,7 +6862,7 @@ do
 					table.move(values, 1, values.n, 3, items42)
 				end
 				instance4.Color = colorSequence(items42)
-				_G.__4HubSpin(instance4, 90, function()
+				_G.__RyftSpin(instance4, 90, function()
 					return frame5.Parent ~= nil
 				end)
 				local uiPadding = Instance.new("UIPadding", frame5)
@@ -7068,14 +7068,14 @@ do
 		createSection(Settings, "Alerts", lightBlue, darkBlue, blueLine, value165)
 	end
 	createToggle(Settings, "Enabled Alerts", handleAction135(), false, function(argument207)
-		_G.__4HubEnabledAlerts = argument207 and true or false
+		_G.__RyftEnabledAlerts = argument207 and true or false
 	end)
 	createToggle(Settings, "Enable Brainrot Notification", handleAction135(), false, function(argument208)
-		_G.__4HubBrainrotNotif = argument208 and true or false
+		_G.__RyftBrainrotNotif = argument208 and true or false
 	end)
 	do
 		local AlertSoundId = getSavedChoice("AlertSoundId") or "102483636290461"
-		_G.__4HubAlertSoundId = AlertSoundId
+		_G.__RyftAlertSoundId = AlertSoundId
 		local sound = Instance.new("Sound")
 		sound.Name = "RiftAlertSound"
 		sound.Volume = 1
@@ -7084,7 +7084,7 @@ do
 		createTextBox(Settings, "Alert Sound ID", handleAction135(), AlertSoundId, true, function(argument209)
 			local num = tonumber(argument209)
 			if num and num > 0 then
-				_G.__4HubAlertSoundId = tostring(num)
+				_G.__RyftAlertSoundId = tostring(num)
 				saveChoice("AlertSoundId", tostring(num))
 				sound.SoundId = "rbxassetid://" .. num
 				pcall(function()
@@ -7104,7 +7104,7 @@ do
 		local value167 = handleAction135()
 		createSection(Settings, "Job Joiner", lightBlue, darkBlue, blueLine, value167)
 	end
-	_G.__4HubJobJoinerToggle = createToggle(Settings, "Job ID Joiner", handleAction135(), false, function(argument210)
+	_G.__RyftJobJoinerToggle = createToggle(Settings, "Job ID Joiner", handleAction135(), false, function(argument210)
 		handleAction153(argument210)
 	end)
 end
@@ -7193,35 +7193,35 @@ do
 			local darkBlue = themeColors.DarkBlue
 			createTextButton(Settings, "Reset GUI", handleAction135(), "Reset", darkBlue, function()
 				frame.Position = UDim2.new(0.5, 0, 0.5, 0)
-				if _G.__4HubResetUIs then
-					_G.__4HubResetUIs()
+				if _G.__RyftResetUIs then
+					_G.__RyftResetUIs()
 				end
 				if guiScaling then
 					guiScaling.Set(100)
 				end
-				if _G.__4HubSetGuiScale then
-					_G.__4HubSetGuiScale(100)
+				if _G.__RyftSetGuiScale then
+					_G.__RyftSetGuiScale(100)
 				end
 			end)
 		end
-		_G.__4HubMainWindow = frame
-		_G.__4HubTranspExclude = _G.__4HubTranspExclude or setmetatable({}, { __mode = "k" })
-		_G.__4HubTranspExclude[frame] = true
-		if _G.__4HubSetGuiScale then
-			_G.__4HubSetGuiScale(_G.__4HubGuiScaleCur or 100)
+		_G.__RyftMainWindow = frame
+		_G.__RyftTranspExclude = _G.__RyftTranspExclude or setmetatable({}, { __mode = "k" })
+		_G.__RyftTranspExclude[frame] = true
+		if _G.__RyftSetGuiScale then
+			_G.__RyftSetGuiScale(_G.__RyftGuiScaleCur or 100)
 			task.delay(1, function()
 				pcall(function()
-					_G.__4HubSetGuiScale(_G.__4HubGuiScaleCur or 100)
+					_G.__RyftSetGuiScale(_G.__RyftGuiScaleCur or 100)
 				end)
 			end)
 			task.delay(3, function()
 				pcall(function()
-					_G.__4HubSetGuiScale(_G.__4HubGuiScaleCur or 100)
+					_G.__RyftSetGuiScale(_G.__RyftGuiScaleCur or 100)
 				end)
 			end)
 		end
 		createToggle(Settings, "GUI Notifications", handleAction135(), true, function(argument215)
-			_G.__4HubNotifEnabled = argument215 and true or false
+			_G.__RyftNotifEnabled = argument215 and true or false
 		end)
 		do
 			local options34 = {
@@ -7232,8 +7232,8 @@ do
 				suffix = "%",
 			}
 			guiScaling = createSlider(Settings, "GUI Scaling", handleAction135(), options34, function(argument216)
-				if _G.__4HubSetGuiScale then
-					_G.__4HubSetGuiScale(argument216)
+				if _G.__RyftSetGuiScale then
+					_G.__RyftSetGuiScale(argument216)
 				end
 			end)
 		end
@@ -7247,9 +7247,9 @@ do
 	local color2 = Color3.fromRGB(190, 40, 48)
 	local textControl1 = nil
 	local function handleAction158()
-		4HubLocked = not 4HubLocked
-		_G.__4HubLocked = 4HubLocked
-		if 4HubLocked then
+		RyftLocked = not RyftLocked
+		_G.__RyftLocked = RyftLocked
+		if RyftLocked then
 			textControl1.Text = "🔓  Unlock GUI"
 			textControl1.BackgroundColor3 = color2
 		else
@@ -7310,18 +7310,18 @@ do
 				saveChoice("Order_" .. argument218, HttpService:JSONEncode(argument219))
 			end)
 		end
-		_G.__4HubClickOrder = handleAction159("Click")
-		_G.__4HubProxOrder = handleAction159("Prox")
-		_G.__4HubSpamOrder = handleAction159("Spam")
-		_G.__4HubSpamMode = getSavedChoice("SpamMode") == "Single" and "Single" or "Full"
+		_G.__RyftClickOrder = handleAction159("Click")
+		_G.__RyftProxOrder = handleAction159("Prox")
+		_G.__RyftSpamOrder = handleAction159("Spam")
+		_G.__RyftSpamMode = getSavedChoice("SpamMode") == "Single" and "Single" or "Full"
 		local screenGui2 = Instance.new("ScreenGui")
-		screenGui2.Name = "4HubAPConfig"
+		screenGui2.Name = "RyftAPConfig"
 		screenGui2.ResetOnSpawn = false
 		screenGui2.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 		screenGui2.IgnoreGuiInset = true
 		screenGui2.DisplayOrder = 100002
 		screenGui2.Parent = playerGui_
-		_G.__4HubCloseAPConfigs = function(argument220)
+		_G.__RyftCloseAPConfigs = function(argument220)
 			for _, child in ipairs(screenGui2:GetChildren()) do
 				if child:IsA("Frame") and child ~= argument220 then
 					child.Visible = false
@@ -7368,7 +7368,7 @@ do
 			end
 			uiGradient2.Color = colorSequence(items47)
 			uiGradient2.Parent = uiStroke2
-			_G.__4HubSpin(uiGradient2, 90, function()
+			_G.__RyftSpin(uiGradient2, 90, function()
 				return frame5.Visible
 			end)
 			local uiListLayout = Instance.new("UIListLayout")
@@ -7681,8 +7681,8 @@ do
 				end)
 			end
 			local function handleAction167()
-				if _G.__4HubCloseAPConfigs then
-					_G.__4HubCloseAPConfigs(frame5)
+				if _G.__RyftCloseAPConfigs then
+					_G.__RyftCloseAPConfigs(frame5)
 				end
 				entry66 += 1
 				frame5.Position = UDim2.new(0.5, 0, 0.5, 0)
@@ -7715,20 +7715,20 @@ do
 		local blueLine = themeColors.BlueLine
 		local value195 = handleAction168()
 		createSection1(ap, "Command Controls", lightBlue, darkBlue, blueLine, value195)
-		local clickToApOrder = handleAction161("Click To AP Order", _G.__4HubClickOrder, "Click")
+		local clickToApOrder = handleAction161("Click To AP Order", _G.__RyftClickOrder, "Click")
 		local clickToAp = createToggle(ap, "Click To AP", handleAction168(), false, function(argument227)
-			if _G.__4HubSetClickAP then
-				_G.__4HubSetClickAP(argument227)
+			if _G.__RyftSetClickAP then
+				_G.__RyftSetClickAP(argument227)
 			end
 		end, false, function()
 			clickToApOrder.toggle()
 		end)
-		_G.__4HubClickAPNotify = function(argument228)
+		_G.__RyftClickAPNotify = function(argument228)
 			if clickToAp then
 				clickToAp.SetSilent(argument228)
 			end
 		end
-		local proximityOrder = handleAction161("Proximity Order", _G.__4HubProxOrder, "Prox", nil, function(parent)
+		local proximityOrder = handleAction161("Proximity Order", _G.__RyftProxOrder, "Prox", nil, function(parent)
 			local instance4 = Instance.new("Frame")
 			instance4.Size = UDim2.new(1, 0, 0, 42)
 			instance4.BackgroundTransparency = 1
@@ -7781,17 +7781,17 @@ do
 			textButton3.Position = UDim2.new(0, 0, -1.5, 0)
 			textButton3.Parent = frame5
 			local function handleAction169(argument229, argument230)
-				local 4HubProxRadius = math.clamp(math.floor(argument229 + 0.5), 1, 50)
-				local number42 = (4HubProxRadius - 1) / 49
+				local RyftProxRadius = math.clamp(math.floor(argument229 + 0.5), 1, 50)
+				local number42 = (RyftProxRadius - 1) / 49
 				frame6.Size = UDim2.new(number42, 0, 1, 0)
 				frame7.Position = UDim2.new(number42, 0, 0.5, 0)
-				textLabel2.Text = tostring(4HubProxRadius)
-				_G.__4HubProxRadius = 4HubProxRadius
+				textLabel2.Text = tostring(RyftProxRadius)
+				_G.__RyftProxRadius = RyftProxRadius
 				if argument230 then
-					saveNumber("ProxStuds", 4HubProxRadius)
+					saveNumber("ProxStuds", RyftProxRadius)
 				end
 			end
-			handleAction169(_G.__4HubProxRadius or 15, false)
+			handleAction169(_G.__RyftProxRadius or 15, false)
 			local enabled40 = false
 			local function handleAction170(argument231)
 				local entry68 = 0
@@ -7816,21 +7816,21 @@ do
 		end)
 		local entry69 = false
 		local function handleAction171(argument232)
-			if _G.__4HubSetProximityAP then
-				_G.__4HubSetProximityAP(argument232)
+			if _G.__RyftSetProximityAP then
+				_G.__RyftSetProximityAP(argument232)
 			end
 		end
 		local entry70 = false
 		local proximity = createToggle(ap, "Proximity", handleAction168(), entry69, handleAction171, entry70, function()
 			proximityOrder.toggle()
 		end)
-		_G.__4HubProxAPNotify = function(argument233)
+		_G.__RyftProxAPNotify = function(argument233)
 			if proximity then
 				proximity.SetSilent(argument233)
 			end
 		end
 		local items50 = {}
-		local spamBaseOwnerOrder = handleAction161("Spam Base Owner Order", _G.__4HubSpamOrder, "Spam", function(parent)
+		local spamBaseOwnerOrder = handleAction161("Spam Base Owner Order", _G.__RyftSpamOrder, "Spam", function(parent)
 			local function handleAction172(text, layoutOrder)
 				local instance4 = Instance.new("Frame")
 				instance4.Size = UDim2.new(1, 0, 0, 30)
@@ -7871,10 +7871,10 @@ do
 				end
 				items50[text] = handleAction173
 				textButton3.MouseButton1Click:Connect(function()
-					_G.__4HubSpamMode = text == "Single Commands" and "Single" or "Full"
-					saveChoice("SpamMode", _G.__4HubSpamMode)
-					items50["Single Commands"](_G.__4HubSpamMode == "Single")
-					items50["Full Commands"](_G.__4HubSpamMode == "Full")
+					_G.__RyftSpamMode = text == "Single Commands" and "Single" or "Full"
+					saveChoice("SpamMode", _G.__RyftSpamMode)
+					items50["Single Commands"](_G.__RyftSpamMode == "Single")
+					items50["Full Commands"](_G.__RyftSpamMode == "Full")
 				end)
 				handleAction173(false)
 			end
@@ -7883,17 +7883,17 @@ do
 		end)
 		task.defer(function()
 			if items50["Single Commands"] then
-				items50["Single Commands"](_G.__4HubSpamMode == "Single")
+				items50["Single Commands"](_G.__RyftSpamMode == "Single")
 			end
 			if items50["Full Commands"] then
-				items50["Full Commands"](_G.__4HubSpamMode == "Full")
+				items50["Full Commands"](_G.__RyftSpamMode == "Full")
 			end
 		end)
 		local spamBaseOwner = nil
 		local function handleAction174(argument235)
 			if argument235 then
-				if _G.__4HubSpamBaseOwner then
-					_G.__4HubSpamBaseOwner()
+				if _G.__RyftSpamBaseOwner then
+					_G.__RyftSpamBaseOwner()
 				end
 				task.delay(0.5, function()
 					if spamBaseOwner then
@@ -8019,23 +8019,23 @@ do
 		uiListLayout2.SortOrder = Enum.SortOrder.LayoutOrder
 		uiListLayout2.Padding = UDim.new(0, 6)
 		uiListLayout2.Parent = frame7
-		local function 4HubBlChanged()
+		local function RyftBlChanged()
 			for _, child in ipairs(frame7:GetChildren()) do
 				if child:IsA("Frame") then
 					child:Destroy()
 				end
 			end
 			local number43 = 0
-			for k, value198 in pairs(_G.__4HubBlacklist) do
+			for k, value198 in pairs(_G.__RyftBlacklist) do
 				number43 += 1
 				createFrame(frame7, tonumber(k) or 0, value198.name or "?", value198.display or value198.name or "?", number43, "UnBlacklist", false, function(argument240)
-					_G.__4HubBlRemove(tonumber(k) or k)
+					_G.__RyftBlRemove(tonumber(k) or k)
 					argument240:Destroy()
 				end)
 			end
 		end
-		_G.__4HubBlChanged = 4HubBlChanged
-		4HubBlChanged()
+		_G.__RyftBlChanged = RyftBlChanged
+		RyftBlChanged()
 		local function handleAction176(argument241)
 			for _, child in ipairs(frame6:GetChildren()) do
 				if child:IsA("Frame") then
@@ -8063,7 +8063,7 @@ do
 				end)
 				local argument2411 = argument241
 				createFrame(frame6, userIdFromNameAsync, argument241, argument2411, 1, "Blacklist", true, function()
-					_G.__4HubBlAdd(userIdFromNameAsync, argument241, argument2411)
+					_G.__RyftBlAdd(userIdFromNameAsync, argument241, argument2411)
 				end)
 			end)
 		end
@@ -8089,9 +8089,9 @@ do
 		local function handleAction179()
 			local items51 = {}
 			local value199 = pairs
-			local 4HubToggles = _G.__4HubToggles or {}
-			for k, 4HubToggle in value199(4HubToggles) do
-				if 4HubToggle.Get and 4HubToggle.Get() then
+			local RyftToggles = _G.__RyftToggles or {}
+			for k, RyftToggle in value199(RyftToggles) do
+				if RyftToggle.Get and RyftToggle.Get() then
 					items51[#items51 + 1] = handleAction178(k)
 				end
 			end
@@ -8102,10 +8102,10 @@ do
 			local text13 = table.concat(items51, ">")
 			local items52 = {}
 			local value201 = pairs
-			local 4HubSliders = _G.__4HubSliders or {}
-			for k, 4HubSlider in value201(4HubSliders) do
-				if 4HubSlider.Get then
-					items52[#items52 + 1] = "[" .. handleAction178(k) .. "=" .. tostring(4HubSlider.Get()) .. "]"
+			local RyftSliders = _G.__RyftSliders or {}
+			for k, RyftSlider in value201(RyftSliders) do
+				if RyftSlider.Get then
+					items52[#items52 + 1] = "[" .. handleAction178(k) .. "=" .. tostring(RyftSlider.Get()) .. "]"
 				end
 			end
 			table.sort(items52)
@@ -8126,13 +8126,13 @@ do
 				items53[handleAction178(match)] = true
 			end
 			local value202 = pairs
-			local 4HubToggles = _G.__4HubToggles or {}
+			local RyftToggles = _G.__RyftToggles or {}
 			local number45 = 0
-			for k, 4HubToggle in value202(4HubToggles) do
-				if 4HubToggle.Get and 4HubToggle.Set then
+			for k, RyftToggle in value202(RyftToggles) do
+				if RyftToggle.Get and RyftToggle.Set then
 					local matchesCondition3 = items53[handleAction178(k)] == true
-					if 4HubToggle.Get() ~= matchesCondition3 then
-						4HubToggle.Set(matchesCondition3)
+					if RyftToggle.Get() ~= matchesCondition3 then
+						RyftToggle.Set(matchesCondition3)
 						number45 += 1
 					end
 				end
@@ -8142,11 +8142,11 @@ do
 				items54[handleAction178(match)] = tonumber(match2)
 			end
 			local value203 = pairs
-			local 4HubSliders = _G.__4HubSliders or {}
-			for k, 4HubSlider in value203(4HubSliders) do
+			local RyftSliders = _G.__RyftSliders or {}
+			for k, RyftSlider in value203(RyftSliders) do
 				local entry71 = items54[handleAction178(k)]
-				if entry71 ~= nil and 4HubSlider.Set then
-					4HubSlider.Set(entry71)
+				if entry71 ~= nil and RyftSlider.Set then
+					RyftSlider.Set(entry71)
 					number45 += 1
 				end
 			end
@@ -8638,7 +8638,7 @@ do
 	local position2 = nil
 	local entry73 = false
 	local function handleAction188(input)
-		if 4HubLocked then
+		if RyftLocked then
 			return
 		end
 		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
@@ -8702,8 +8702,8 @@ do
 		enabled20 = false
 		instance2.Visible = false
 		enabled19 = false
-		if _G.__4HubCloseAPConfigs then
-			_G.__4HubCloseAPConfigs()
+		if _G.__RyftCloseAPConfigs then
+			_G.__RyftCloseAPConfigs()
 		end
 		TweenService:Create(uiStroke, TweenInfo.new(0.2), { Transparency = 1 }):Play()
 		local tween = TweenService:Create(frame, tweenInfo2, { Size = UDim2.fromOffset(0, 0) })
@@ -8715,7 +8715,7 @@ do
 	end
 end
 textButton.MouseButton1Click:Connect(handleAction155)
-_G.__4HubToggleMenu = function()
+_G.__RyftToggleMenu = function()
 	if enabled37 then
 		handleAction155()
 	else
@@ -8778,7 +8778,7 @@ do
 	end
 	uiGradient.Color = colorSequence(items55)
 	uiGradient.Parent = value216
-	_G.__4HubSpin(uiGradient, 90)
+	_G.__RyftSpin(uiGradient, 90)
 end
 textButton2.MouseEnter:Connect(function()
 	local options46 = { BackgroundColor3 = themeColors.DarkBlue }
@@ -8833,18 +8833,18 @@ do
 			return instance4
 		end
 		local function handleAction191()
-			if _G.__4HubKick then
-				pcall(_G.__4HubKick)
+			if _G.__RyftKick then
+				pcall(_G.__RyftKick)
 			end
 		end
 		local function handleAction192()
-			if _G.__4HubRejoin then
-				pcall(_G.__4HubRejoin)
+			if _G.__RyftRejoin then
+				pcall(_G.__RyftRejoin)
 			end
 		end
 		local function handleAction193()
-			if _G.__4HubReset then
-				pcall(_G.__4HubReset)
+			if _G.__RyftReset then
+				pcall(_G.__RyftReset)
 			end
 		end
 		local actionsPanelUI = playerGui_:FindFirstChild("ActionsPanelUI")
@@ -8895,7 +8895,7 @@ do
 		end
 		uiGradient2.Color = colorSequence(items56)
 		uiGradient2.Parent = instance4
-		_G.__4HubSpin(uiGradient2, 90)
+		_G.__RyftSpin(uiGradient2, 90)
 		local frame6 = Instance.new("Frame")
 		frame6.Name = "Header"
 		frame6.Size = UDim2.new(1, 0, 0, 42)
@@ -9024,8 +9024,8 @@ do
 				task.delay(0.1, function()
 					instance8.BackgroundColor3 = solid
 				end)
-				if _G.__4HubNotify then
-					_G.__4HubNotify(name, "Activated")
+				if _G.__RyftNotify then
+					_G.__RyftNotify(name, "Activated")
 				end
 				if argument248 then
 					task.spawn(argument248)
@@ -9035,8 +9035,8 @@ do
 		end
 		local options58 = { Ragdoll = "N", Kick = "Y", Rejoin = "K", Reset = "X" }
 		local Ragdoll = handleAction194("Ragdoll", 1, function()
-			if _G.__4HubRagdollSelf then
-				_G.__4HubRagdollSelf()
+			if _G.__RyftRagdollSelf then
+				_G.__RyftRagdollSelf()
 			end
 		end)
 		local Kick = handleAction194("Kick", 2, function()
@@ -9049,22 +9049,22 @@ do
 			handleAction193()
 		end)
 		handleAction194("Settings", 5, function()
-			if _G.__4HubToggleMenu then
-				_G.__4HubToggleMenu()
+			if _G.__RyftToggleMenu then
+				_G.__RyftToggleMenu()
 			end
 		end, { solid = true })
 		local options59 = { Ragdoll = Ragdoll, Kick = Kick, Rejoin = Rejoin, Reset = Reset }
-		_G.__4HubAPRefresh = function()
+		_G.__RyftAPRefresh = function()
 			for k, textControl2 in pairs(options59) do
-				textControl2.Text = k .. ": " .. (_G.4HubKeys and _G.4HubKeys[k] or options58[k] or "None")
+				textControl2.Text = k .. ": " .. (_G.RyftKeys and _G.RyftKeys[k] or options58[k] or "None")
 			end
 		end
-		_G.__4HubAPRefresh()
+		_G.__RyftAPRefresh()
 		_G.setActionsPanelHidden = function(argument250)
 			screenGui2.Enabled = not argument250
 		end
-		if _G.__4HubRegisterDrag then
-			_G.__4HubRegisterDrag(frame5, frame6, "ActionsPanelWin", UDim2.new(1, -16, 1, -16))
+		if _G.__RyftRegisterDrag then
+			_G.__RyftRegisterDrag(frame5, frame6, "ActionsPanelWin", UDim2.new(1, -16, 1, -16))
 		end
 		local entry76 = false
 		local entry77 = false
@@ -9233,7 +9233,7 @@ do
 				local humanoidRootPart = character and character:FindFirstChild("HumanoidRootPart")
 				if humanoidRootPart then
 					pcall(function()
-						_G.__4HubMoveStop(humanoidRootPart, false)
+						_G.__RyftMoveStop(humanoidRootPart, false)
 					end)
 				end
 				character = character and character:FindFirstChildOfClass("Humanoid")
@@ -9259,9 +9259,9 @@ do
 				end
 				local moveDirection = humanoid.MoveDirection
 				if moveDirection.Magnitude > 0.05 then
-					_G.__4HubMove(value226, moveDirection.X * WalkSpeedState.speed, moveDirection.Z * WalkSpeedState.speed)
+					_G.__RyftMove(value226, moveDirection.X * WalkSpeedState.speed, moveDirection.Z * WalkSpeedState.speed)
 				else
-					_G.__4HubMove(value226, 0, 0)
+					_G.__RyftMove(value226, 0, 0)
 				end
 			end)
 		end
@@ -9718,7 +9718,7 @@ do
 					end
 				end)
 				selfVisConn = RunService.RenderStepped:Connect(function()
-					if _G.__4HubDead then
+					if _G.__RyftDead then
 						if selfVisConn then
 							selfVisConn:Disconnect()
 						end
@@ -9739,7 +9739,7 @@ do
 				local position = nil
 				local entry81 = 5
 				connection = RunService.PreSimulation:Connect(function()
-					if _G.__4HubDead then
+					if _G.__RyftDead then
 						if connection then
 							connection:Disconnect()
 						end
@@ -9972,8 +9972,8 @@ do
 		frame5.ClipsDescendants = true
 		frame5.Active = true
 		frame5.Parent = instance4
-		if _G.__4HubRegisterScale then
-			_G.__4HubRegisterScale(frame5)
+		if _G.__RyftRegisterScale then
+			_G.__RyftRegisterScale(frame5)
 		end
 		createUICorner2(frame5, 12)
 		applySavedPosition("InvisStealWindowBL", frame5)
@@ -10002,7 +10002,7 @@ do
 		end
 		uiGradient2.Color = colorSequence(items58)
 		uiGradient2.Parent = instance5
-		_G.__4HubSpin(uiGradient2, 90, function()
+		_G.__RyftSpin(uiGradient2, 90, function()
 			return instance4.Parent ~= nil
 		end)
 		local frame6 = Instance.new("Frame")
@@ -10153,7 +10153,7 @@ do
 			frame7.Parent = textButton4
 			createUICorner2(frame7, 7)
 			local function handleAction200(argument273)
-				local lightBlue = _G.__4HubAccentCur and _G.__4HubAccentCur.LightBlue or options62.LightBlue
+				local lightBlue = _G.__RyftAccentCur and _G.__RyftAccentCur.LightBlue or options62.LightBlue
 				TweenService2:Create(textButton4, TweenInfo.new(0.18), { BackgroundColor3 = argument273 and lightBlue or options62.ToggleOff }):Play()
 				TweenService2:Create(frame7, TweenInfo.new(0.18, Enum.EasingStyle.Quad), { Position = argument273 and UDim2.new(1, -17, 0.5, -7) or UDim2.new(0, 3, 0.5, -7) }):Play()
 			end
@@ -10161,8 +10161,8 @@ do
 			onToggleChanged(argument270, function(argument274)
 				handleAction200(argument274)
 			end)
-			if _G.__4HubOnTheme then
-				_G.__4HubOnTheme(function()
+			if _G.__RyftOnTheme then
+				_G.__RyftOnTheme(function()
 					handleAction200(getToggle(argument270))
 				end)
 			end
@@ -10188,8 +10188,8 @@ do
 			textButton4.MouseButton1Click:Connect(function()
 				local enabled42 = not getToggle(argument270)
 				setToggle(argument270, enabled42)
-				if _G.__4HubNotify then
-					_G.__4HubNotify(text, enabled42 and "Enabled" or "Disabled")
+				if _G.__RyftNotify then
+					_G.__RyftNotify(text, enabled42 and "Enabled" or "Disabled")
 				end
 				if argument272 then
 					task.spawn(argument272, enabled42)
@@ -10269,19 +10269,19 @@ do
 			textButton4.InputBegan:Connect(function(input)
 				if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
 					enabled43 = true
-					_G.__4HubSliderDragging = true
+					_G.__RyftSliderDragging = true
 					handleAction202(input.Position.X)
 				end
 			end)
 			UIS.InputEnded:Connect(function(input)
 				if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) and enabled43 then
 					enabled43 = false
-					_G.__4HubSliderDragging = false
+					_G.__RyftSliderDragging = false
 					if argument280 then
 						argument280()
 					end
-					if _G.__4HubNotify then
-						_G.__4HubNotify(text, "Set to " .. textLabel3.Text)
+					if _G.__RyftNotify then
+						_G.__RyftNotify(text, "Set to " .. textLabel3.Text)
 					end
 				end
 			end)
@@ -10318,7 +10318,7 @@ do
 		handleAction199("WalkSpeed", "WalkSpeed", false, function(argument283)
 			setWalkSpeedEnabled(argument283)
 		end)
-		_G.__4HubToggleWalkSpeed = function()
+		_G.__RyftToggleWalkSpeed = function()
 			setWalkSpeedEnabled(not WalkSpeedState.enabled)
 		end
 		if Config.WalkSpeedEnabled then
@@ -10526,7 +10526,7 @@ do
 			return value246, value247, entry85
 		end
 		local function handleAction213()
-			if not _G.__4HubPromptGen then
+			if not _G.__RyftPromptGen then
 				return nil
 			end
 			local value249 = Workspace2:FindFirstChild("Plots")
@@ -10548,7 +10548,7 @@ do
 									if promptAttachment then
 										for _, child3 in pairs(promptAttachment:GetChildren()) do
 											if child3:IsA("ProximityPrompt") and handleAction210(child3) and handleAction209(child3) then
-												local ok, result = pcall(_G.__4HubPromptGen, child3)
+												local ok, result = pcall(_G.__RyftPromptGen, child3)
 												result = ok and type(result) == "number" and result or 0
 												if number52 < result then
 													number52 = result
@@ -10566,11 +10566,11 @@ do
 			return value250
 		end
 		local function handleAction214()
-			local 4HubAutoSteal = _G.__4HubAutoSteal
-			if 4HubAutoSteal == nil then
+			local RyftAutoSteal = _G.__RyftAutoSteal
+			if RyftAutoSteal == nil then
 				return true
 			end
-			return 4HubAutoSteal and true or false
+			return RyftAutoSteal and true or false
 		end
 		local now2 = tick()
 		local enabled49 = false
@@ -10580,7 +10580,7 @@ do
 		local enabled51 = false
 		local entry86 = 0
 		local function handleAction215(argument289, argument290)
-			if _G.__4HubDead then
+			if _G.__RyftDead then
 				return
 			end
 			local entry87 = "function"
@@ -10599,7 +10599,7 @@ do
 			end)
 		end
 		local function handleAction216(argument291)
-			if _G.__4HubDead then
+			if _G.__RyftDead then
 				return
 			end
 			if not enabled46 then
@@ -10654,7 +10654,7 @@ do
 			end
 		end
 		task.spawn(function()
-			while not handleAction204() and not _G.__4HubDead do
+			while not handleAction204() and not _G.__RyftDead do
 				if not enabled46 or not handleAction214() then
 					enabled52 = false
 					value253 = nil
@@ -10663,8 +10663,8 @@ do
 					number53 = 0
 					enabled51 = false
 					entry86 = 0
-					if _G.__4HubHighlightPrompt then
-						pcall(_G.__4HubHighlightPrompt, nil)
+					if _G.__RyftHighlightPrompt then
+						pcall(_G.__RyftHighlightPrompt, nil)
 					end
 					task.wait(0.1)
 				elseif handleAction208() then
@@ -10684,37 +10684,37 @@ do
 					local enabled54
 					if selectedTargetPrompt and selectedTargetPrompt.Parent and handleAction210(selectedTargetPrompt) then
 						enabled54 = handleAction209(selectedTargetPrompt)
-						if _G.__4HubHighlightPrompt then
-							pcall(_G.__4HubHighlightPrompt, nil)
+						if _G.__RyftHighlightPrompt then
+							pcall(_G.__RyftHighlightPrompt, nil)
 						end
 					else
-						local 4HubGrabMode = _G.__4HubGrabMode or "Nearest"
-						if 4HubGrabMode == "Highest" then
+						local RyftGrabMode = _G.__RyftGrabMode or "Nearest"
+						if RyftGrabMode == "Highest" then
 							selectedTargetPrompt = handleAction213()
 							if selectedTargetPrompt then
 								enabled54 = true
-								if _G.__4HubHighlightPrompt then
-									pcall(_G.__4HubHighlightPrompt, selectedTargetPrompt)
+								if _G.__RyftHighlightPrompt then
+									pcall(_G.__RyftHighlightPrompt, selectedTargetPrompt)
 									enabled54 = true
 								end
 							else
 								selectedTargetPrompt = value254 or value255
 								enabled54 = value254 ~= nil
-								if _G.__4HubHighlightPrompt then
-									pcall(_G.__4HubHighlightPrompt, value254)
+								if _G.__RyftHighlightPrompt then
+									pcall(_G.__RyftHighlightPrompt, value254)
 								end
 							end
-						elseif 4HubGrabMode == "Priority" then
+						elseif RyftGrabMode == "Priority" then
 							selectedTargetPrompt = value254 or value255
 							enabled54 = value254 ~= nil
-							if _G.__4HubHighlightPrompt then
-								pcall(_G.__4HubHighlightPrompt, value254)
+							if _G.__RyftHighlightPrompt then
+								pcall(_G.__RyftHighlightPrompt, value254)
 							end
 						else
 							selectedTargetPrompt = value254 or value255
 							enabled54 = value254 ~= nil
-							if _G.__4HubHighlightPrompt then
-								pcall(_G.__4HubHighlightPrompt, nil)
+							if _G.__RyftHighlightPrompt then
+								pcall(_G.__RyftHighlightPrompt, nil)
 							end
 						end
 					end
@@ -10787,8 +10787,8 @@ do
 		frame5.BackgroundTransparency = 0.22
 		frame5.BorderSizePixel = 0
 		frame5.Parent = screenGui2
-		if _G.__4HubRegisterScale then
-			_G.__4HubRegisterScale(frame5)
+		if _G.__RyftRegisterScale then
+			_G.__RyftRegisterScale(frame5)
 		end
 		Instance.new("UICorner", frame5).CornerRadius = UDim.new(0, 11)
 		local imageLabel = Instance.new("ImageLabel")
@@ -10956,7 +10956,7 @@ do
 			textLabel.TextColor3 = enabled49 and Color3.fromRGB(240, 240, 250) or Color3.fromRGB(150, 150, 165)
 			textLabel2.Text = text2
 			textLabel2.TextColor3 = entry91 and color3 or Color3.fromRGB(170, 170, 185)
-			frame6.BackgroundColor3 = _G.__4HubEspTint and _G.__4HubEspTint(color4) or color4
+			frame6.BackgroundColor3 = _G.__RyftEspTint and _G.__RyftEspTint(color4) or color4
 			frame6.BackgroundTransparency = 0.1 + 0.25 * (0.5 + 0.5 * math.sin(now4 * 7))
 			if entry91 then
 				uiStroke2.Transparency = 0.2 + 0.4 * (0.5 + 0.5 * math.sin(now4 * 9))
@@ -11081,8 +11081,8 @@ do
 		instance4.ClipsDescendants = true
 		instance4.Active = true
 		instance4.Parent = screenGui2
-		if _G.__4HubRegisterScale then
-			_G.__4HubRegisterScale(instance4)
+		if _G.__RyftRegisterScale then
+			_G.__RyftRegisterScale(instance4)
 		end
 		createUICorner2(instance4, 12)
 		restoreWindowPosition("CommandCooldown", instance4)
@@ -11130,7 +11130,7 @@ do
 		local uiGradient3 = Instance.new("UIGradient")
 		uiGradient3.Color = value268
 		uiGradient3.Parent = uiStroke3
-		_G.__4HubPulse(function(argument298)
+		_G.__RyftPulse(function(argument298)
 			if instance4.Parent then
 				local rotation = argument298 * 100 % 360
 				uiGradient3.Rotation = rotation
@@ -11547,8 +11547,8 @@ do
 			frame5.ClipsDescendants = true
 			frame5.Active = true
 			frame5.Parent = screenGui2
-			if _G.__4HubRegisterScale then
-				_G.__4HubRegisterScale(frame5)
+			if _G.__RyftRegisterScale then
+				_G.__RyftRegisterScale(frame5)
 			end
 			createUICorner(frame5, 12)
 			local instance4 = Instance.new("UIGradient")
@@ -11598,7 +11598,7 @@ do
 			local uiGradient = Instance.new("UIGradient")
 			uiGradient.Color = value284
 			uiGradient.Parent = uiStroke2
-			_G.__4HubPulse(function(argument308)
+			_G.__RyftPulse(function(argument308)
 				if not frame5.Parent then
 					return
 				end
@@ -12271,7 +12271,7 @@ do
 		end
 		uiGradient3.Color = colorSequence2(items82)
 		uiGradient3.Parent = uiStroke3
-		_G.__4HubPulse(function(argument322)
+		_G.__RyftPulse(function(argument322)
 			if not uiStroke2.Parent then
 				return
 			end
@@ -12311,7 +12311,7 @@ do
 			Position = UDim2.new(0, 58, 0, 6),
 			Size = UDim2.new(0, 150, 0, 15),
 			Font = gothamBold2,
-			Text = "4Hub HUB",
+			Text = "Ryft HUB",
 			TextSize = 15,
 			TextColor3 = options75.White,
 			TextXAlignment = Enum.TextXAlignment.Left,
@@ -12325,7 +12325,7 @@ do
 			Position = UDim2.new(0, 58, 0, 23),
 			Size = UDim2.new(0, 150, 0, 15),
 			Font = gothamBold2,
-			Text = "discord.gg/4Hubhub",
+			Text = "discord.gg/Ryfthub",
 			TextSize = 13,
 			TextColor3 = options75.LightBlue,
 			TextXAlignment = Enum.TextXAlignment.Left,
@@ -12362,8 +12362,8 @@ do
 			value315.Color = colorSequence3(items83)
 		end
 		handleAction235(options75.LightBlue)
-		if _G.__4HubOnTheme then
-			_G.__4HubOnTheme(function(argument324)
+		if _G.__RyftOnTheme then
+			_G.__RyftOnTheme(function(argument324)
 				handleAction235(argument324 and argument324.LightBlue or options75.LightBlue)
 			end)
 		end
@@ -12372,7 +12372,7 @@ do
 		local entry104 = 0
 		local connection_ = nil
 		connection_ = service21.RenderStepped:Connect(function(deltaTime)
-			if _G.__4HubDead or not TextLabel.Parent then
+			if _G.__RyftDead or not TextLabel.Parent then
 				if connection_ then
 					connection_:Disconnect()
 				end
@@ -12458,8 +12458,8 @@ do
 			Parent = Frame,
 		})
 		TextLabel3.AutoLocalize = false
-		if _G.__4HubOnTheme then
-			_G.__4HubOnTheme(function(argument325)
+		if _G.__RyftOnTheme then
+			_G.__RyftOnTheme(function(argument325)
 				local lightBlue = argument325 and argument325.LightBlue or options75.LightBlue
 				TextLabel.TextColor3 = lightBlue
 				TextLabel2.TextColor3 = lightBlue
@@ -12586,8 +12586,8 @@ do
 		frame5.ClipsDescendants = true
 		frame5.Active = true
 		frame5.Parent = screenGui2
-		if _G.__4HubRegisterScale then
-			_G.__4HubRegisterScale(frame5)
+		if _G.__RyftRegisterScale then
+			_G.__RyftRegisterScale(frame5)
 		end
 		handleAction237(frame5, 12)
 		local uiGradient = Instance.new("UIGradient")
@@ -12616,8 +12616,8 @@ do
 		uiGradient2.Color = colorSequence(items84)
 		uiGradient2.Parent = uiStroke2
 		local sg = nil
-		_G.__4HubSpin(uiGradient2, 90)
-		_G.__4HubPulse(function(argument331)
+		_G.__RyftSpin(uiGradient2, 90)
+		_G.__RyftPulse(function(argument331)
 			if sg then
 				sg.Rotation = argument331 * 150 % 360
 			end
@@ -12783,14 +12783,14 @@ do
 				if enabled57 then
 					enabled5711 = enabled571
 				else
-					enabled5711 = not _G.__4HubBrainrotViewport
+					enabled5711 = not _G.__RyftBrainrotViewport
 				end
 				if enabled5711 then
 					return enabled57
 				end
-				if _G.__4HubBrainrotViewport(frame8, _G.__4HubPromptIndex and _G.__4HubPromptIndex(argument332) or handleAction240(argument332), _G.__4HubPromptModel and _G.__4HubPromptModel(argument332)) then
+				if _G.__RyftBrainrotViewport(frame8, _G.__RyftPromptIndex and _G.__RyftPromptIndex(argument332) or handleAction240(argument332), _G.__RyftPromptModel and _G.__RyftPromptModel(argument332)) then
 					enabled57 = true
-					frame8:SetAttribute("4HubImgSet", true)
+					frame8:SetAttribute("RyftImgSet", true)
 				end
 				return enabled57
 			end
@@ -12939,17 +12939,17 @@ do
 			instance8.MouseButton1Click:Connect(function()
 				if value327 == argument332 then
 					value327 = nil
-					if _G.__4HubStealTargetPrevMode and _G.__4HubSetGrabMode then
-						_G.__4HubSetGrabMode(_G.__4HubStealTargetPrevMode)
+					if _G.__RyftStealTargetPrevMode and _G.__RyftSetGrabMode then
+						_G.__RyftSetGrabMode(_G.__RyftStealTargetPrevMode)
 					end
-					_G.__4HubStealTargetPrevMode = nil
+					_G.__RyftStealTargetPrevMode = nil
 				else
-					if _G.__4HubStealTargetPrevMode == nil then
-						_G.__4HubStealTargetPrevMode = _G.__4HubGrabMode or "Nearest"
+					if _G.__RyftStealTargetPrevMode == nil then
+						_G.__RyftStealTargetPrevMode = _G.__RyftGrabMode or "Nearest"
 					end
 					value327 = argument332
-					if _G.__4HubSetGrabMode then
-						_G.__4HubSetGrabMode("Priority")
+					if _G.__RyftSetGrabMode then
+						_G.__RyftSetGrabMode("Priority")
 					end
 				end
 				value328 = nil
@@ -12962,7 +12962,7 @@ do
 			items86[argument332] = options77
 			return options77
 		end
-		_G.__4HubHighlightPrompt = function(argument333)
+		_G.__RyftHighlightPrompt = function(argument333)
 			if value327 ~= nil then
 				value328 = nil
 				return
@@ -12976,12 +12976,12 @@ do
 				value336.setSelected(k == argument333 and argument333 ~= nil)
 			end
 		end
-		_G.__4HubClearStealSelection = function()
+		_G.__RyftClearStealSelection = function()
 			if value327 == nil then
 				return
 			end
 			value327 = nil
-			_G.__4HubStealTargetPrevMode = nil
+			_G.__RyftStealTargetPrevMode = nil
 			value328 = nil
 			sg = nil
 			for _, value337 in pairs(items86) do
@@ -12994,10 +12994,10 @@ do
 		local function handleAction244()
 			local items88 = {}
 			local value338 = ipairs
-			local 4HubStealPrompts = _G.__4HubStealPrompts and _G.__4HubStealPrompts() or {}
-			for _, 4HubStealPrompt in value338(4HubStealPrompts) do
-				if 4HubStealPrompt.Parent then
-					items88[4HubStealPrompt] = true
+			local RyftStealPrompts = _G.__RyftStealPrompts and _G.__RyftStealPrompts() or {}
+			for _, RyftStealPrompt in value338(RyftStealPrompts) do
+				if RyftStealPrompt.Parent then
+					items88[RyftStealPrompt] = true
 				end
 			end
 			for k, value339 in pairs(items86) do
@@ -13048,8 +13048,8 @@ do
 							local text26 = "Normal"
 							local number70 = 0
 							local value343 = nil
-							if _G.__4HubPromptInfo then
-								local ok, result, result2, result3, result4 = pcall(_G.__4HubPromptInfo, k)
+							if _G.__RyftPromptInfo then
+								local ok, result, result2, result3, result4 = pcall(_G.__RyftPromptInfo, k)
 								gen = 0
 								text26 = "Normal"
 								number70 = 0
@@ -13068,26 +13068,26 @@ do
 							end
 							value342.gen = gen
 							if value342.owner then
-								value342.owner.Text = "Owner: " .. tostring(value343 or _G.__4HubPromptOwner and _G.__4HubPromptOwner(k) or "Unknown")
+								value342.owner.Text = "Owner: " .. tostring(value343 or _G.__RyftPromptOwner and _G.__RyftPromptOwner(k) or "Unknown")
 							end
 							local text27 = tostring(text26)
 							if text27 == "" or text27:lower() == "none" then
 								text27 = "Normal"
 							end
-							value342.sub.Text = "Mutation: <font color=\"" .. handleAction238(_G.__4HubMutColor and _G.__4HubMutColor(text26) or Color3.fromRGB(200, 200, 210)) .. "\">" .. text27 .. "</font>"
+							value342.sub.Text = "Mutation: <font color=\"" .. handleAction238(_G.__RyftMutColor and _G.__RyftMutColor(text26) or Color3.fromRGB(200, 200, 210)) .. "\">" .. text27 .. "</font>"
 							if value342.rarity then
-								local 4HubPromptRarity = _G.__4HubPromptRarity and _G.__4HubPromptRarity(k) or ""
-								value342.rarity.Text = "Rarity: " .. (4HubPromptRarity ~= "" and 4HubPromptRarity or "...")
+								local RyftPromptRarity = _G.__RyftPromptRarity and _G.__RyftPromptRarity(k) or ""
+								value342.rarity.Text = "Rarity: " .. (RyftPromptRarity ~= "" and RyftPromptRarity or "...")
 							end
 							if number70 > 0 then
-								value342.price.Text = "Gen: " .. (_G.__4HubMoney and _G.__4HubMoney(number70) or "$" .. tostring(gen)) .. "/s"
+								value342.price.Text = "Gen: " .. (_G.__RyftMoney and _G.__RyftMoney(number70) or "$" .. tostring(gen)) .. "/s"
 							else
 								value342.price.Text = "Gen: ..."
 							end
 							value342.price.TextColor3 = Color3.fromRGB(80, 225, 130)
-							if value342.imgBox and not value342.imgBox:GetAttribute("4HubImgSet") and _G.__4HubBrainrotViewport then
-								if _G.__4HubBrainrotViewport(value342.imgBox, _G.__4HubPromptIndex and _G.__4HubPromptIndex(k) or handleAction240(k), _G.__4HubPromptModel and _G.__4HubPromptModel(k)) then
-									value342.imgBox:SetAttribute("4HubImgSet", true)
+							if value342.imgBox and not value342.imgBox:GetAttribute("RyftImgSet") and _G.__RyftBrainrotViewport then
+								if _G.__RyftBrainrotViewport(value342.imgBox, _G.__RyftPromptIndex and _G.__RyftPromptIndex(k) or handleAction240(k), _G.__RyftPromptModel and _G.__RyftPromptModel(k)) then
+									value342.imgBox:SetAttribute("RyftImgSet", true)
 								end
 							end
 							if value342.traitBox then
@@ -13095,9 +13095,9 @@ do
 								if x and x > 0 then
 									value342.traitBox.Position = UDim2.fromOffset(46 + x + 6, 23)
 								end
-								local 4HubPromptTraits = _G.__4HubPromptTraits and _G.__4HubPromptTraits(k) or {}
-								if _G.__4HubRenderTraits then
-									_G.__4HubRenderTraits(value342.traitBox, 4HubPromptTraits, 14)
+								local RyftPromptTraits = _G.__RyftPromptTraits and _G.__RyftPromptTraits(k) or {}
+								if _G.__RyftRenderTraits then
+									_G.__RyftRenderTraits(value342.traitBox, RyftPromptTraits, 14)
 								end
 							end
 						end
@@ -13115,8 +13115,8 @@ do
 			end
 		end)
 		handleAction244()
-		if _G.__4HubRegisterDrag then
-			_G.__4HubRegisterDrag(frame5, instance4, "StealTargetWin", UDim2.new(0.72, 0, 0, 16))
+		if _G.__RyftRegisterDrag then
+			_G.__RyftRegisterDrag(frame5, instance4, "StealTargetWin", UDim2.new(0.72, 0, 0, 16))
 		end
 		frame5.Size = UDim2.fromOffset(0, 0)
 		uiStroke2.Transparency = 1
@@ -13186,8 +13186,8 @@ do
 		instance4.ClipsDescendants = true
 		instance4.Active = true
 		instance4.Parent = screenGui2
-		if _G.__4HubRegisterScale then
-			_G.__4HubRegisterScale(instance4)
+		if _G.__RyftRegisterScale then
+			_G.__RyftRegisterScale(instance4)
 		end
 		handleAction246(instance4, 12)
 		local uiGradient = Instance.new("UIGradient")
@@ -13216,7 +13216,7 @@ do
 		end
 		uiGradient2.Color = colorSequence(items90)
 		uiGradient2.Parent = uiStroke2
-		_G.__4HubSpin(uiGradient2, 90)
+		_G.__RyftSpin(uiGradient2, 90)
 		local instance5 = Instance.new("Frame")
 		instance5.Name = "Header"
 		instance5.Size = UDim2.new(1, 0, 0, 42)
@@ -13358,14 +13358,14 @@ do
 			frame8.Parent = textButton4
 			handleAction246(frame8, 7)
 			local function handleAction248()
-				local lightBlue = _G.__4HubAccentCur and _G.__4HubAccentCur.LightBlue or options82.LightBlue
+				local lightBlue = _G.__RyftAccentCur and _G.__RyftAccentCur.LightBlue or options82.LightBlue
 				TweenService2:Create(textButton4, TweenInfo.new(0.18), { BackgroundColor3 = argument3381 and lightBlue or options82.ToggleOff }):Play()
 				TweenService2:Create(frame8, TweenInfo.new(0.18, Enum.EasingStyle.Quad), {
 					Position = argument3381 and UDim2.new(1, -17, 0.5, -7) or UDim2.new(0, 3, 0.5, -7),
 				}):Play()
 			end
-			if _G.__4HubOnTheme then
-				_G.__4HubOnTheme(function()
+			if _G.__RyftOnTheme then
+				_G.__RyftOnTheme(function()
 					handleAction248()
 				end)
 			end
@@ -13395,27 +13395,27 @@ do
 			return entry109
 		end
 		local TC_AutoSteal = getSavedChoice("TC_AutoSteal")
-		local 4HubAutoSteal = TC_AutoSteal == nil and true or TC_AutoSteal == "1"
-		_G.__4HubAutoSteal = 4HubAutoSteal
-		handleAction247("Auto Steal", handleAction249(), 4HubAutoSteal, function(4HubAutoSteal2)
-			_G.__4HubAutoSteal = 4HubAutoSteal2
-			saveChoice("TC_AutoSteal", 4HubAutoSteal2 and "1" or "0")
+		local RyftAutoSteal = TC_AutoSteal == nil and true or TC_AutoSteal == "1"
+		_G.__RyftAutoSteal = RyftAutoSteal
+		handleAction247("Auto Steal", handleAction249(), RyftAutoSteal, function(RyftAutoSteal2)
+			_G.__RyftAutoSteal = RyftAutoSteal2
+			saveChoice("TC_AutoSteal", RyftAutoSteal2 and "1" or "0")
 		end)
 		local items92 = {}
 		local enabled58 = false
 		local function handleAction250(argument341, argument342)
 			local value349 = nil
-			local matchesCondition6 = _G.__4HubGrabMode == argument342
+			local matchesCondition6 = _G.__RyftGrabMode == argument342
 			local function handleAction251(argument343)
 				if enabled58 then
 					return
 				end
 				if argument343 then
-					if _G.__4HubClearStealSelection then
-						pcall(_G.__4HubClearStealSelection)
+					if _G.__RyftClearStealSelection then
+						pcall(_G.__RyftClearStealSelection)
 					end
-					_G.__4HubSetGrabMode(argument342)
-				elseif _G.__4HubGrabMode == argument342 then
+					_G.__RyftSetGrabMode(argument342)
+				elseif _G.__RyftGrabMode == argument342 then
 					enabled58 = true
 					value349.Set(true)
 					enabled58 = false
@@ -13429,7 +13429,7 @@ do
 		handleAction250("Priority", "Priority")
 		handleAction250("Nearest", "Nearest")
 		handleAction250("Highest", "Highest")
-		_G.__4HubTC_ApplyMode = function(argument344)
+		_G.__RyftTC_ApplyMode = function(argument344)
 			enabled58 = true
 			for k, value350 in pairs(items92) do
 				if value350.Get() ~= k == argument344 then
@@ -13438,19 +13438,19 @@ do
 			end
 			enabled58 = false
 		end
-		_G.__4HubTC_ApplyMode(_G.__4HubGrabMode or "Nearest")
+		_G.__RyftTC_ApplyMode(_G.__RyftGrabMode or "Nearest")
 		handleAction247("Auto Turret", handleAction249(), getSavedChoice("TC_AutoTurret") == "1", function(argument345)
 			saveChoice("TC_AutoTurret", argument345 and "1" or "0")
 		end)
 		local TC_AutoKick = getSavedToggle("TC_AutoKick")
 		handleAction247("Auto Kick", handleAction249(), TC_AutoKick, function(argument346)
-			if _G.__4HubAutoKickMainToggle then
-				_G.__4HubAutoKickMainToggle.Set(argument346)
+			if _G.__RyftAutoKickMainToggle then
+				_G.__RyftAutoKickMainToggle.Set(argument346)
 			end
 			saveToggle("TC_AutoKick", argument346)
 		end)
-		if _G.__4HubRegisterDrag then
-			_G.__4HubRegisterDrag(instance4, instance5, "TargetControlsWin", UDim2.new(0, 272, 1, -170))
+		if _G.__RyftRegisterDrag then
+			_G.__RyftRegisterDrag(instance4, instance5, "TargetControlsWin", UDim2.new(0, 272, 1, -170))
 		end
 		local enabled59 = false
 		local entry110 = false
@@ -13704,7 +13704,7 @@ do
 	end
 	handleAction253()
 end
-_G.__4HubAnimalAt = _G.__4HubAnimalAt or function()
+_G.__RyftAnimalAt = _G.__RyftAnimalAt or function()
 	return nil
 end
 do
@@ -13766,7 +13766,7 @@ do
 				task.defer(handleAction264)
 			end)
 		end)
-		_G.__4HubMoney = function(argument357)
+		_G.__RyftMoney = function(argument357)
 			local argument3571 = argument357 or 0
 			if NumberUtils then
 				local ok, result = pcall(function()
@@ -14203,7 +14203,7 @@ do
 			if type(entry128) == "table" then
 				text31 = tostring(entry128.Rarity or entry128.rarity or "")
 			end
-			_G.__4HubMutDbg = { name = value383, index = entry124, mut = matchesCondition9, gen = value387, hasModel = value ~= nil, viaChannel = entry125 }
+			_G.__RyftMutDbg = { name = value383, index = entry124, mut = matchesCondition9, gen = value387, hasModel = value ~= nil, viaChannel = entry125 }
 			return {
 				gen = value387 or 0,
 				mut = matchesCondition9,
@@ -14229,29 +14229,29 @@ do
 			obj[argument375] = { info = value389, t = tick() }
 			return value389
 		end
-		_G.__4HubPromptGen = function(argument376)
+		_G.__RyftPromptGen = function(argument376)
 			return handleAction278(argument376).gen
 		end
-		_G.__4HubPromptInfo = function(argument377)
+		_G.__RyftPromptInfo = function(argument377)
 			local value390 = handleAction278(argument377)
 			return value390.gen, value390.mut, value390.val, value390.owner
 		end
-		_G.__4HubPromptOwner = function(argument378)
+		_G.__RyftPromptOwner = function(argument378)
 			return handleAction278(argument378).owner or "Unknown"
 		end
-		_G.__4HubPromptRarity = function(argument379)
+		_G.__RyftPromptRarity = function(argument379)
 			return handleAction278(argument379).rarity or ""
 		end
-		_G.__4HubPromptModel = function(argument380)
+		_G.__RyftPromptModel = function(argument380)
 			return handleAction278(argument380).model
 		end
-		_G.__4HubPromptTraits = function(argument381)
+		_G.__RyftPromptTraits = function(argument381)
 			return handleAction278(argument381).traits or {}
 		end
-		_G.__4HubPromptIndex = function(argument382)
+		_G.__RyftPromptIndex = function(argument382)
 			return handleAction278(argument382).index
 		end
-		_G.__4HubRenderTraits = function()
+		_G.__RyftRenderTraits = function()
 		end
 		local items95 = {}
 		local function handleAction279(argument383)
@@ -14268,7 +14268,7 @@ do
 			end
 			return nil
 		end
-		_G.__4HubTraitIcon = function(argument384)
+		_G.__RyftTraitIcon = function(argument384)
 			if argument384 == nil then
 				return nil
 			end
@@ -14402,7 +14402,7 @@ do
 			end)
 			return value395
 		end
-		_G.__4HubBrainrotModel = function(argument388)
+		_G.__RyftBrainrotModel = function(argument388)
 			if not argument388 then
 				return nil
 			end
@@ -14426,7 +14426,7 @@ do
 			if not parent then
 				return nil
 			end
-			local argument3911 = _G.__4HubBrainrotModel(argument390) or argument391
+			local argument3911 = _G.__RyftBrainrotModel(argument390) or argument391
 			if not argument3911 or not argument3911:IsA("Model") then
 				return nil
 			end
@@ -14519,12 +14519,12 @@ do
 			end
 			return viewportFrame
 		end
-		_G.__4HubBrainrotViewport = function(argument392, argument393, argument394)
+		_G.__RyftBrainrotViewport = function(argument392, argument393, argument394)
 			return createViewportFrame(argument392, argument393, argument394)
 		end
 		local items96 = {}
 		local now2 = 0
-		_G.__4HubStealPrompts = function()
+		_G.__RyftStealPrompts = function()
 			if tick() - now2 < 0.6 then
 				return items96
 			end
@@ -14569,7 +14569,7 @@ do
 			phantom = Color3.fromRGB(210, 210, 220),
 		}
 		local color = Color3.fromRGB(150, 165, 195)
-		_G.__4HubMutColor = function(argument395)
+		_G.__RyftMutColor = function(argument395)
 			local text37 = tostring(argument395 or ""):gsub("%s+", ""):lower()
 			if text37 == "" or text37 == "none" or text37 == "normal" then
 				return color
@@ -14596,11 +14596,11 @@ do
 		local items99 = {}
 		local enabled61 = false
 		local function handleAction284()
-			if enabled61 or not _G.__4HubPulse then
+			if enabled61 or not _G.__RyftPulse then
 				return
 			end
 			enabled61 = true
-			_G.__4HubPulse(function(argument396)
+			_G.__RyftPulse(function(argument396)
 				local number83 = argument396 * 0.5 % 2 - 1
 				local number84 = #items99
 				local entry136 = 0
@@ -14657,38 +14657,38 @@ do
 			end
 			return colorSequence2(items101)
 		end
-		_G.__4HubMutStyle = function(parent, argument399)
+		_G.__RyftMutStyle = function(parent, argument399)
 			if not parent then
 				return
 			end
 			local text38 = tostring(argument399 or ""):gsub("%s+", ""):lower()
-			local 4HubMutGrad = parent:FindFirstChild("4HubMutGrad")
+			local RyftMutGrad = parent:FindFirstChild("RyftMutGrad")
 			if text38 == "" or text38 == "none" or text38 == "normal" then
-				if 4HubMutGrad then
-					4HubMutGrad.Enabled = false
+				if RyftMutGrad then
+					RyftMutGrad.Enabled = false
 				end
 				parent.TextColor3 = color
 				return
 			end
 			if text38 == "yinyang" then
-				if 4HubMutGrad then
-					4HubMutGrad.Enabled = false
+				if RyftMutGrad then
+					RyftMutGrad.Enabled = false
 				end
 				parent.TextColor3 = Color3.fromRGB(255, 255, 255)
 				return
 			end
-			if not 4HubMutGrad then
-				4HubMutGrad = Instance.new("UIGradient")
-				4HubMutGrad.Name = "4HubMutGrad"
-				4HubMutGrad.Parent = parent
-				items99[#items99 + 1] = 4HubMutGrad
+			if not RyftMutGrad then
+				RyftMutGrad = Instance.new("UIGradient")
+				RyftMutGrad.Name = "RyftMutGrad"
+				RyftMutGrad.Parent = parent
+				items99[#items99 + 1] = RyftMutGrad
 				handleAction284()
 			end
-			if 4HubMutGrad:GetAttribute("4HubMut") ~= text38 then
-				4HubMutGrad.Color = handleAction285(text38, options90[text38] or Color3.fromRGB(180, 150, 255))
-				4HubMutGrad:SetAttribute("4HubMut", text38)
+			if RyftMutGrad:GetAttribute("RyftMut") ~= text38 then
+				RyftMutGrad.Color = handleAction285(text38, options90[text38] or Color3.fromRGB(180, 150, 255))
+				RyftMutGrad:SetAttribute("RyftMut", text38)
 			end
-			4HubMutGrad.Enabled = true
+			RyftMutGrad.Enabled = true
 			parent.TextColor3 = Color3.fromRGB(255, 255, 255)
 		end
 	end
@@ -14726,7 +14726,7 @@ do
 			return instance4
 		end
 		local function handleAction288()
-			return _G.__4HubAccentCur and _G.__4HubAccentCur.LightBlue or options91.Cyan
+			return _G.__RyftAccentCur and _G.__RyftAccentCur.LightBlue or options91.Cyan
 		end
 		local function handleAction289()
 			local value418 = handleAction288()
@@ -14877,8 +14877,8 @@ do
 			items103[argument403] = options92
 			return options92
 		end
-		if _G.__4HubOnTheme then
-			_G.__4HubOnTheme(function()
+		if _G.__RyftOnTheme then
+			_G.__RyftOnTheme(function()
 				for _, value423 in pairs(items103) do
 					pcall(function()
 						if value423.grad and value423.grad.Parent then
@@ -14914,10 +14914,10 @@ do
 			end
 			local items104 = {}
 			local value424 = ipairs
-			local 4HubStealPrompts = _G.__4HubStealPrompts and _G.__4HubStealPrompts() or {}
-			for _, 4HubStealPrompt in value424(4HubStealPrompts) do
-				if 4HubStealPrompt.Parent then
-					items104[4HubStealPrompt] = true
+			local RyftStealPrompts = _G.__RyftStealPrompts and _G.__RyftStealPrompts() or {}
+			for _, RyftStealPrompt in value424(RyftStealPrompts) do
+				if RyftStealPrompt.Parent then
+					items104[RyftStealPrompt] = true
 				end
 			end
 			for k in pairs(items103) do
@@ -14941,8 +14941,8 @@ do
 					local number90 = 0
 					local text39 = "Normal"
 					local number91 = 0
-					if _G.__4HubPromptInfo then
-						local ok, result, result2, result3 = pcall(_G.__4HubPromptInfo, k)
+					if _G.__RyftPromptInfo then
+						local ok, result, result2, result3 = pcall(_G.__RyftPromptInfo, k)
 						if ok then
 							number90 = result or number90
 							text39 = result2 or text39
@@ -14954,21 +14954,21 @@ do
 						text = "Normal"
 					end
 					entry141.mut.Text = text
-					if _G.__4HubMutStyle then
-						_G.__4HubMutStyle(entry141.mut, text39)
-					elseif _G.__4HubMutColor then
-						entry141.mut.TextColor3 = _G.__4HubMutColor(text39)
+					if _G.__RyftMutStyle then
+						_G.__RyftMutStyle(entry141.mut, text39)
+					elseif _G.__RyftMutColor then
+						entry141.mut.TextColor3 = _G.__RyftMutColor(text39)
 					end
-					entry141.price.Text = _G.__4HubMoney and _G.__4HubMoney(number91) or "$" .. tostring(number90)
+					entry141.price.Text = _G.__RyftMoney and _G.__RyftMoney(number91) or "$" .. tostring(number90)
 					if entry141.traitBox then
 						local x = entry141.mut.AbsoluteSize.X
 						if x and x > 0 then
 							entry141.traitBox.Position = UDim2.fromOffset(18 + x + 5, 2)
 							entry141.traitBox.Size = UDim2.fromOffset(math.max(12, number87 - 8 - 18 + x + 5), 12)
 						end
-						local 4HubPromptTraits = _G.__4HubPromptTraits and _G.__4HubPromptTraits(k) or {}
-						if _G.__4HubRenderTraits then
-							_G.__4HubRenderTraits(entry141.traitBox, 4HubPromptTraits, 12)
+						local RyftPromptTraits = _G.__RyftPromptTraits and _G.__RyftPromptTraits(k) or {}
+						if _G.__RyftRenderTraits then
+							_G.__RyftRenderTraits(entry141.traitBox, RyftPromptTraits, 12)
 						end
 					end
 					if number89 < number90 then
@@ -15000,7 +15000,7 @@ do
 				end
 			end
 		end)
-		_G.__4HubSetBrainrotESP = function(argument405)
+		_G.__RyftSetBrainrotESP = function(argument405)
 			if argument405 then
 				if enabled62 then
 					return
@@ -15009,7 +15009,7 @@ do
 				if not folder3 or not folder3.Parent then
 					folder3 = Instance.new("Folder")
 					folder3.Name = "\5"
-					folder3.Parent = _G.__4HubEspGuiHolder()
+					folder3.Parent = _G.__RyftEspGuiHolder()
 				end
 				number88 += 1
 				local number881 = number88
@@ -15052,16 +15052,16 @@ do
 		end
 		local function handleAction298()
 			local value431 = ipairs
-			local 4HubStealPrompts = _G.__4HubStealPrompts and _G.__4HubStealPrompts() or {}
+			local RyftStealPrompts = _G.__RyftStealPrompts and _G.__RyftStealPrompts() or {}
 			local number94 = -1
 			local value432 = nil
-			for _, 4HubStealPrompt in value431(4HubStealPrompts) do
-				if 4HubStealPrompt.Parent then
-					local value433 = handleAction297(4HubStealPrompt)
+			for _, RyftStealPrompt in value431(RyftStealPrompts) do
+				if RyftStealPrompt.Parent then
+					local value433 = handleAction297(RyftStealPrompt)
 					if value433 then
 						local entry142 = 0
-						if _G.__4HubPromptGen then
-							local ok, result = pcall(_G.__4HubPromptGen, 4HubStealPrompt)
+						if _G.__RyftPromptGen then
+							local ok, result = pcall(_G.__RyftPromptGen, RyftStealPrompt)
 							entry142 = ok and type(result) == "number" and result or 0
 						end
 						if number94 < entry142 then
@@ -15073,7 +15073,7 @@ do
 			end
 			value430 = value432
 		end
-		_G.__4HubSetBrainrotLine = function(argument407)
+		_G.__RyftSetBrainrotLine = function(argument407)
 			if argument407 then
 				if enabled63 then
 					return
@@ -15091,8 +15091,8 @@ do
 				part.CanQuery = false
 				part.CastShadow = false
 				part.Material = Enum.Material.Neon
-				if _G.__4HubEspBind then
-					_G.__4HubEspBind(part, "Color", color, "color3")
+				if _G.__RyftEspBind then
+					_G.__RyftEspBind(part, "Color", color, "color3")
 				else
 					part.Color = color
 				end
@@ -15149,18 +15149,18 @@ do
 	handleAction296()
 end
 task.defer(function()
-	_G.__4HubReady = true
+	_G.__RyftReady = true
 	local GrabMode = getSavedChoice("GrabMode") or "Nearest"
-	_G.__4HubGrabMode = GrabMode
-	if _G.__4HubTC_ApplyMode then
-		pcall(_G.__4HubTC_ApplyMode, GrabMode)
+	_G.__RyftGrabMode = GrabMode
+	if _G.__RyftTC_ApplyMode then
+		pcall(_G.__RyftTC_ApplyMode, GrabMode)
 	end
 end)
 do
 	local function handleAction299()
 		local TweenService2 = game:GetService("TweenService")
 		local UserInputService = game:GetService("UserInputService")
-		_G.__4HubProxRadius = getSavedNumber("ProxStuds") or 15
+		_G.__RyftProxRadius = getSavedNumber("ProxStuds") or 15
 		local number95 = 1
 		local number96 = 50
 		local instance4 = Instance.new("Frame")
@@ -15271,17 +15271,17 @@ do
 		instance8.ZIndex = 44
 		instance8.Parent = frame6
 		local function handleAction300(argument408, argument409)
-			local 4HubProxRadius = math.clamp(math.floor(argument408 + 0.5), 1, 50)
-			local number97 = (4HubProxRadius - number95) / (number96 - number95)
+			local RyftProxRadius = math.clamp(math.floor(argument408 + 0.5), 1, 50)
+			local number97 = (RyftProxRadius - number95) / (number96 - number95)
 			frame7.Size = UDim2.new(number97, 0, 1, 0)
 			frame8.Position = UDim2.new(number97, 0, 0.5, 0)
-			textLabel2.Text = tostring(4HubProxRadius)
-			_G.__4HubProxRadius = 4HubProxRadius
+			textLabel2.Text = tostring(RyftProxRadius)
+			_G.__RyftProxRadius = RyftProxRadius
 			if argument409 then
-				saveNumber("ProxStuds", 4HubProxRadius)
+				saveNumber("ProxStuds", RyftProxRadius)
 			end
 		end
-		handleAction300(_G.__4HubProxRadius, false)
+		handleAction300(_G.__RyftProxRadius, false)
 		local enabled64 = false
 		local function handleAction301(argument410)
 			local entry144 = 0
@@ -15316,7 +15316,7 @@ do
 			end)
 		end
 		instance5.MouseButton1Click:Connect(handleAction302)
-		_G.__4HubOpenProxPopup = function()
+		_G.__RyftOpenProxPopup = function()
 			enabled65 = not enabled65
 			if enabled65 then
 				instance4.Visible = true
@@ -15349,7 +15349,7 @@ do
 			morph = 30,
 		}
 		local function handleAction304()
-			return _G.__4HubProxRadius or 15
+			return _G.__RyftProxRadius or 15
 		end
 		local items106 = {}
 		local function handleAction305(argument411)
@@ -15488,16 +15488,16 @@ do
 			end
 			handleAction308(value440)
 			handleAction307(argument421)
-			if _G.__4HubNotify then
-				_G.__4HubNotify(tostring(argument421):gsub("^%l", string.upper), "on " .. (argument420.DisplayName or argument420.Name))
+			if _G.__RyftNotify then
+				_G.__RyftNotify(tostring(argument421):gsub("^%l", string.upper), "on " .. (argument420.DisplayName or argument420.Name))
 			end
 			return true
 		end
 		local items107 = {}
 		local function handleAction313(argument422)
-			local 4HubProxOrder = _G.__4HubProxOrder or items105
-			for i = 1, #4HubProxOrder do
-				local entry147 = 4HubProxOrder[i]
+			local RyftProxOrder = _G.__RyftProxOrder or items105
+			for i = 1, #RyftProxOrder do
+				local entry147 = RyftProxOrder[i]
 				if not handleAction306(entry147) then
 					return entry147, i + 1
 				end
@@ -15528,7 +15528,7 @@ do
 		local part = nil
 		local connection_ = nil
 		local number99 = 0
-		local function 4HubSetProximityAP(argument424)
+		local function RyftSetProximityAP(argument424)
 			local argument4241 = argument424 and true or false
 			if argument4241 == enabled69 then
 				return
@@ -15584,7 +15584,7 @@ do
 							for _, player_ in ipairs(players23:GetPlayers()) do
 								local matchesCondition10 = player_ ~= localPlayer29
 								if matchesCondition10 then
-									matchesCondition10 = not (_G.__4HubIsBlacklisted and _G.__4HubIsBlacklisted(player_))
+									matchesCondition10 = not (_G.__RyftIsBlacklisted and _G.__RyftIsBlacklisted(player_))
 								end
 								if matchesCondition10 and player_.Character and player_.Character:FindFirstChild("HumanoidRootPart") then
 									if (player_.Character.HumanoidRootPart.Position - character.Position).Magnitude <= value444 then
@@ -15616,13 +15616,13 @@ do
 				end
 				items107 = {}
 			end
-			if _G.__4HubProxAPNotify then
-				_G.__4HubProxAPNotify(enabled69)
+			if _G.__RyftProxAPNotify then
+				_G.__RyftProxAPNotify(enabled69)
 			end
 		end
-		_G.__4HubSetProximityAP = 4HubSetProximityAP
-		_G.__4HubToggleProximityAP = function()
-			4HubSetProximityAP(not enabled69)
+		_G.__RyftSetProximityAP = RyftSetProximityAP
+		_G.__RyftToggleProximityAP = function()
+			RyftSetProximityAP(not enabled69)
 		end
 		players23.PlayerRemoving:Connect(function(player_)
 			items107[player_] = nil
@@ -15789,8 +15789,8 @@ do
 			end
 			handleAction321(value451)
 			handleAction318(argument435)
-			if _G.__4HubNotify then
-				_G.__4HubNotify(tostring(argument435):gsub("^%l", string.upper), "on " .. (argument434.DisplayName or argument434.Name))
+			if _G.__RyftNotify then
+				_G.__RyftNotify(tostring(argument435):gsub("^%l", string.upper), "on " .. (argument434.DisplayName or argument434.Name))
 			end
 			return true
 		end
@@ -15859,7 +15859,7 @@ do
 			for _, player_ in ipairs(players24:GetPlayers()) do
 				local matchesCondition11 = player_ ~= localPlayer30
 				if matchesCondition11 then
-					matchesCondition11 = not (_G.__4HubIsBlacklisted and _G.__4HubIsBlacklisted(player_))
+					matchesCondition11 = not (_G.__RyftIsBlacklisted and _G.__RyftIsBlacklisted(player_))
 				end
 				if matchesCondition11 and player_.Character and player_.Character:FindFirstChild("HumanoidRootPart") then
 					if handleAction324(value452.Origin, value452.Direction, player_.Character.HumanoidRootPart.Position, 8) then
@@ -15899,10 +15899,10 @@ do
 			if not value454 then
 				return
 			end
-			local 4HubClickOrder = _G.__4HubClickOrder or items108
+			local RyftClickOrder = _G.__RyftClickOrder or items108
 			local value455 = nil
-			for i = 1, #4HubClickOrder do
-				local entry151 = 4HubClickOrder[i]
+			for i = 1, #RyftClickOrder do
+				local entry151 = RyftClickOrder[i]
 				if not handleAction317(entry151) then
 					value455 = entry151
 					break
@@ -15917,7 +15917,7 @@ do
 				enabled71 = false
 			end)
 		end)
-		local function 4HubSetClickAP(argument440)
+		local function RyftSetClickAP(argument440)
 			local argument4401 = argument440 and true or false
 			if argument4401 == enabled then
 				return
@@ -15927,13 +15927,13 @@ do
 			if not enabled then
 				highlight.Adornee = nil
 			end
-			if _G.__4HubClickAPNotify then
-				_G.__4HubClickAPNotify(enabled)
+			if _G.__RyftClickAPNotify then
+				_G.__RyftClickAPNotify(enabled)
 			end
 		end
-		_G.__4HubSetClickAP = 4HubSetClickAP
-		_G.__4HubToggleClickAP = function()
-			4HubSetClickAP(not enabled)
+		_G.__RyftSetClickAP = RyftSetClickAP
+		_G.__RyftToggleClickAP = function()
+			RyftSetClickAP(not enabled)
 		end
 	end
 	handleAction315()
@@ -16095,8 +16095,8 @@ do
 			end
 			handleAction330(value462)
 			handleAction329(argument451)
-			if _G.__4HubNotify then
-				_G.__4HubNotify(tostring(argument451):gsub("^%l", string.upper), "on " .. (argument450.DisplayName or argument450.Name))
+			if _G.__RyftNotify then
+				_G.__RyftNotify(tostring(argument451):gsub("^%l", string.upper), "on " .. (argument450.DisplayName or argument450.Name))
 			end
 			return true
 		end
@@ -16189,13 +16189,13 @@ do
 			if enabled73 or not argument454 then
 				return
 			end
-			if _G.__4HubIsBlacklisted and _G.__4HubIsBlacklisted(argument454) then
+			if _G.__RyftIsBlacklisted and _G.__RyftIsBlacklisted(argument454) then
 				return
 			end
-			local 4HubSpamOrder = _G.__4HubSpamOrder or items110
-			local 4HubSpamMode = _G.__4HubSpamMode or "Full"
+			local RyftSpamOrder = _G.__RyftSpamOrder or items110
+			local RyftSpamMode = _G.__RyftSpamMode or "Full"
 			local items112 = {}
-			for _, value467 in ipairs(4HubSpamOrder) do
+			for _, value467 in ipairs(RyftSpamOrder) do
 				if not handleAction328(value467) then
 					items112[#items112 + 1] = value467
 				end
@@ -16205,7 +16205,7 @@ do
 			end
 			enabled73 = true
 			task.spawn(function()
-				if 4HubSpamMode == "Single" then
+				if RyftSpamMode == "Single" then
 					for _, value468 in ipairs(items112) do
 						pcall(handleAction334, argument454, value468)
 						task.wait(0.12)
@@ -16220,7 +16220,7 @@ do
 				enabled73 = false
 			end)
 		end
-		_G.__4HubSpamBaseOwner = function()
+		_G.__RyftSpamBaseOwner = function()
 			local value470 = handleAction337()
 			if value470 and value470 ~= localPlayer31 then
 				handleAction338(value470)
@@ -16292,7 +16292,7 @@ do
 			handleAction342(Workspace2:FindFirstChild("Animals"))
 			handleAction342(Workspace2:FindFirstChild("RenderedCharacters"))
 		end
-		_G.__4HubSetNoBrainrotAnims = function(argument459)
+		_G.__RyftSetNoBrainrotAnims = function(argument459)
 			local argument4591 = argument459 and true or false
 			if argument4591 == entry154 then
 				return
@@ -16376,7 +16376,7 @@ do
 		local enabled74 = false
 		local items113 = nil
 		local items114 = {}
-		_G.__4HubSetDarkSky = function(argument460)
+		_G.__RyftSetDarkSky = function(argument460)
 			local argument4601 = argument460 and true or false
 			if argument4601 == enabled74 then
 				return
@@ -16405,31 +16405,31 @@ do
 				end)
 				items114 = {}
 				for _, child in ipairs(Lighting:GetChildren()) do
-					if child:IsA("Sky") and child.Name ~= "4HubDarkSky" then
+					if child:IsA("Sky") and child.Name ~= "RyftDarkSky" then
 						items114[#items114 + 1] = child
 						pcall(function()
 							child.Parent = nil
 						end)
 					end
 				end
-				local 4HubDarkSky = Lighting:FindFirstChild("4HubDarkSky")
-				if not 4HubDarkSky then
-					4HubDarkSky = Instance.new("Sky")
-					4HubDarkSky.Name = "4HubDarkSky"
+				local RyftDarkSky = Lighting:FindFirstChild("RyftDarkSky")
+				if not RyftDarkSky then
+					RyftDarkSky = Instance.new("Sky")
+					RyftDarkSky.Name = "RyftDarkSky"
 				end
 				pcall(function()
-					4HubDarkSky.CelestialBodiesShown = false
-					4HubDarkSky.StarCount = 0
-					4HubDarkSky.MoonTextureId = ""
-					4HubDarkSky.SunTextureId = ""
-					4HubDarkSky.SkyboxBk = ""
-					4HubDarkSky.SkyboxFt = ""
-					4HubDarkSky.SkyboxLf = ""
-					4HubDarkSky.SkyboxRt = ""
-					4HubDarkSky.SkyboxUp = ""
-					4HubDarkSky.SkyboxDn = ""
+					RyftDarkSky.CelestialBodiesShown = false
+					RyftDarkSky.StarCount = 0
+					RyftDarkSky.MoonTextureId = ""
+					RyftDarkSky.SunTextureId = ""
+					RyftDarkSky.SkyboxBk = ""
+					RyftDarkSky.SkyboxFt = ""
+					RyftDarkSky.SkyboxLf = ""
+					RyftDarkSky.SkyboxRt = ""
+					RyftDarkSky.SkyboxUp = ""
+					RyftDarkSky.SkyboxDn = ""
 				end)
-				4HubDarkSky.Parent = Lighting
+				RyftDarkSky.Parent = Lighting
 				if items114.__conn then
 					pcall(function()
 						items114.__conn:Disconnect()
@@ -16439,7 +16439,7 @@ do
 					if not enabled74 then
 						return
 					end
-					if child:IsA("Sky") and child.Name ~= "4HubDarkSky" then
+					if child:IsA("Sky") and child.Name ~= "RyftDarkSky" then
 						items114[#items114 + 1] = child
 						task.defer(function()
 							pcall(function()
@@ -16455,33 +16455,33 @@ do
 						terrain.Enabled = false
 					end
 				end)
-				local 4HubDarkAtmo = Lighting:FindFirstChild("4HubDarkAtmo")
-				if not 4HubDarkAtmo then
-					4HubDarkAtmo = Instance.new("Atmosphere")
-					4HubDarkAtmo.Name = "4HubDarkAtmo"
+				local RyftDarkAtmo = Lighting:FindFirstChild("RyftDarkAtmo")
+				if not RyftDarkAtmo then
+					RyftDarkAtmo = Instance.new("Atmosphere")
+					RyftDarkAtmo.Name = "RyftDarkAtmo"
 				end
 				pcall(function()
-					4HubDarkAtmo.Density = 0.28
-					4HubDarkAtmo.Offset = 0
-					4HubDarkAtmo.Color = Color3.new(0, 0, 0)
-					4HubDarkAtmo.Decay = Color3.new(0, 0, 0)
-					4HubDarkAtmo.Glare = 0
-					4HubDarkAtmo.Haze = 0
+					RyftDarkAtmo.Density = 0.28
+					RyftDarkAtmo.Offset = 0
+					RyftDarkAtmo.Color = Color3.new(0, 0, 0)
+					RyftDarkAtmo.Decay = Color3.new(0, 0, 0)
+					RyftDarkAtmo.Glare = 0
+					RyftDarkAtmo.Haze = 0
 				end)
-				4HubDarkAtmo.Parent = Lighting
+				RyftDarkAtmo.Parent = Lighting
 			else
 				if items114.__conn then
 					pcall(function()
 						items114.__conn:Disconnect()
 					end)
 				end
-				local 4HubDarkSky = Lighting:FindFirstChild("4HubDarkSky")
-				if 4HubDarkSky then
-					4HubDarkSky:Destroy()
+				local RyftDarkSky = Lighting:FindFirstChild("RyftDarkSky")
+				if RyftDarkSky then
+					RyftDarkSky:Destroy()
 				end
-				local 4HubDarkAtmo = Lighting:FindFirstChild("4HubDarkAtmo")
-				if 4HubDarkAtmo then
-					4HubDarkAtmo:Destroy()
+				local RyftDarkAtmo = Lighting:FindFirstChild("RyftDarkAtmo")
+				if RyftDarkAtmo then
+					RyftDarkAtmo:Destroy()
 				end
 				for _, value472 in ipairs(items114) do
 					pcall(function()
@@ -16516,12 +16516,12 @@ end
 do
 	local function handleAction345()
 		local localPlayer32 = game:GetService("Players").LocalPlayer
-		_G.__4HubSetAutoInvis = function(argument461)
-			_G.__4HubAutoInvis = argument461 and true or false
+		_G.__RyftSetAutoInvis = function(argument461)
+			_G.__RyftAutoInvis = argument461 and true or false
 		end
 		local enabled75 = false
 		local function handleAction346()
-			if not _G.__4HubAutoInvis then
+			if not _G.__RyftAutoInvis then
 				return
 			end
 			if localPlayer32:GetAttribute("Stealing") == true then
@@ -16555,27 +16555,27 @@ do
 				return
 			end
 			number110 = tick()
-			if _G.__4HubReset then
-				_G.__4HubReset()
+			if _G.__RyftReset then
+				_G.__RyftReset()
 			end
 		end
 		local function handleAction348(argument462)
-			local 4HubAutoResetBalloon = _G.__4HubAutoResetBalloon
+			local RyftAutoResetBalloon = _G.__RyftAutoResetBalloon
 			local pos
-			if 4HubAutoResetBalloon then
+			if RyftAutoResetBalloon then
 				pos = tostring(argument462):lower():find("balloon", 1, true)
 			else
-				pos = 4HubAutoResetBalloon
+				pos = RyftAutoResetBalloon
 			end
 			return pos
 		end
 		local function handleAction349(argument463)
-			local 4HubAutoResetMorph = _G.__4HubAutoResetMorph
+			local RyftAutoResetMorph = _G.__RyftAutoResetMorph
 			local pos
-			if 4HubAutoResetMorph then
+			if RyftAutoResetMorph then
 				pos = tostring(argument463):lower():find("morph", 1, true)
 			else
-				pos = 4HubAutoResetMorph
+				pos = RyftAutoResetMorph
 			end
 			return pos
 		end
@@ -16618,7 +16618,7 @@ do
 		localPlayer32.CharacterAdded:Connect(handleAction353)
 		task.spawn(function()
 			while true do
-				if _G.__4HubAutoResetBalloon or _G.__4HubAutoResetMorph then
+				if _G.__RyftAutoResetBalloon or _G.__RyftAutoResetMorph then
 					pcall(function()
 						for k, value473 in pairs(localPlayer32:GetAttributes()) do
 							if value473 and value473 ~= false then
@@ -16703,7 +16703,7 @@ do
 			return value477.Position.Y < 12 and 1 or 2
 		end
 		local function handleAction357()
-			if not _G.__4HubAutoUnlock then
+			if not _G.__RyftAutoUnlock then
 				return
 			end
 			local entry155 = true
@@ -16897,7 +16897,7 @@ task.spawn(function()
 		if not argument481 or not argument482 then
 			return false
 		end
-		if _G.__4HubIsBlacklisted and _G.__4HubIsBlacklisted(argument481) then
+		if _G.__RyftIsBlacklisted and _G.__RyftIsBlacklisted(argument481) then
 			return false
 		end
 		local adminPanel = playerGui_:FindFirstChild("AdminPanel") or playerGui_:WaitForChild("AdminPanel", 3)
@@ -16929,8 +16929,8 @@ task.spawn(function()
 		end
 		handleAction362(value484)
 		handleAction361(argument482)
-		if _G.__4HubNotify then
-			_G.__4HubNotify(tostring(argument482):gsub("^%l", string.upper), "on " .. (argument481.DisplayName or argument481.Name))
+		if _G.__RyftNotify then
+			_G.__RyftNotify(tostring(argument482):gsub("^%l", string.upper), "on " .. (argument481.DisplayName or argument481.Name))
 		end
 		return true
 	end
@@ -17077,7 +17077,7 @@ task.spawn(function()
 			screenGui2.Enabled = not argument487
 		end
 	end
-	if _G.__4HubAdminHidden then
+	if _G.__RyftAdminHidden then
 		screenGui2.Enabled = false
 	end
 	local udim22 = UDim2.new(0, 12, 0, 60)
@@ -17114,7 +17114,7 @@ task.spawn(function()
 	end
 	uiGradient.Color = colorSequence(items122)
 	uiGradient.Parent = instance5
-	_G.__4HubSpin(uiGradient, 90)
+	_G.__RyftSpin(uiGradient, 90)
 	local frame6 = Instance.new("Frame")
 	frame6.Size = UDim2.new(1, 0, 0, 44)
 	frame6.BackgroundTransparency = 1
@@ -17357,14 +17357,14 @@ task.spawn(function()
 			local value498 = handleAction370()
 			for k, value499 in pairs(items124) do
 				if k.Parent and value499.status then
-					local 4HubIsBlacklisted = _G.__4HubIsBlacklisted and _G.__4HubIsBlacklisted(k)
+					local RyftIsBlacklisted = _G.__RyftIsBlacklisted and _G.__RyftIsBlacklisted(k)
 					if value499.row then
-						value499.row.BackgroundColor3 = 4HubIsBlacklisted and Color3.fromRGB(60, 14, 18) or options96.BgPanel
+						value499.row.BackgroundColor3 = RyftIsBlacklisted and Color3.fromRGB(60, 14, 18) or options96.BgPanel
 					end
 					if value499.rs then
-						value499.rs.Color = 4HubIsBlacklisted and options96.Red or options96.Stroke
+						value499.rs.Color = RyftIsBlacklisted and options96.Red or options96.Stroke
 					end
-					if 4HubIsBlacklisted then
+					if RyftIsBlacklisted then
 						value499.status.Text = "BLACKLISTED"
 						value499.status.TextColor3 = options96.Red
 					else
@@ -17417,8 +17417,8 @@ task.spawn(function()
 		task.wait(0.3)
 		handleAction374()
 	end)
-	if _G.__4HubRegisterDrag then
-		_G.__4HubRegisterDrag(frame5, frame6, "AdminPanelWin", udim22)
+	if _G.__RyftRegisterDrag then
+		_G.__RyftRegisterDrag(frame5, frame6, "AdminPanelWin", udim22)
 	end
 	local number116 = 0
 	for _, player_ in ipairs(players25:GetPlayers()) do
@@ -17507,7 +17507,7 @@ do
 		end
 		instance4.Color = colorSequence(items126)
 		instance4.Parent = uiStroke2
-		_G.__4HubSpin(instance4, 90)
+		_G.__RyftSpin(instance4, 90)
 		local frame6 = Instance.new("Frame")
 		frame6.Size = UDim2.new(0, 4, 0.6, 0)
 		frame6.Position = UDim2.new(0, 10, 0.2, 0)
@@ -17637,20 +17637,20 @@ do
 			return "Unknown"
 		end
 		local function handleAction380()
-			if not _G.__4HubPromptGen then
+			if not _G.__RyftPromptGen then
 				return nil, 0
 			end
 			local value505 = ipairs
-			local 4HubStealPrompts = _G.__4HubStealPrompts and _G.__4HubStealPrompts() or {}
+			local RyftStealPrompts = _G.__RyftStealPrompts and _G.__RyftStealPrompts() or {}
 			local number119 = -1
 			local value506 = nil
-			for _, 4HubStealPrompt in value505(4HubStealPrompts) do
-				if 4HubStealPrompt.Parent then
-					local ok, result = pcall(_G.__4HubPromptGen, 4HubStealPrompt)
+			for _, RyftStealPrompt in value505(RyftStealPrompts) do
+				if RyftStealPrompt.Parent then
+					local ok, result = pcall(_G.__RyftPromptGen, RyftStealPrompt)
 					result = ok and type(result) == "number" and result or 0
 					if number119 < result then
 						number119 = result
-						value506 = 4HubStealPrompt
+						value506 = RyftStealPrompt
 					end
 				end
 			end
@@ -17659,20 +17659,20 @@ do
 		local value507 = nil
 		task.spawn(function()
 			while true do
-				if not _G.__4HubBrainrotNotif then
+				if not _G.__RyftBrainrotNotif then
 					task.wait(0.4)
 				else
 					local value508, value509 = handleAction380()
 					if value508 and value508 ~= value507 then
-						if _G.__4HubBrainrotNotif then
+						if _G.__RyftBrainrotNotif then
 							value507 = value508
 							local value510 = handleAction378(value508)
 							local value511 = nil
 							local text41 = "Normal"
 							local result
-							if _G.__4HubPromptInfo then
+							if _G.__RyftPromptInfo then
 								local ok, result2, result3, result4
-								ok, result2, result3, result, result4 = pcall(_G.__4HubPromptInfo, value508)
+								ok, result2, result3, result, result4 = pcall(_G.__RyftPromptInfo, value508)
 								value511 = nil
 								text41 = "Normal"
 								if ok then
@@ -17692,32 +17692,32 @@ do
 							end
 							textLabel.Text = value510
 							instance6.Text = "Owner: " .. (value511 or handleAction379(value508))
-							instance7.Text = (_G.__4HubMoney and _G.__4HubMoney(result) or "$" .. tostring(value509)) .. "/s"
+							instance7.Text = (_G.__RyftMoney and _G.__RyftMoney(result) or "$" .. tostring(value509)) .. "/s"
 							local text = tostring(text41)
 							if text == "" or text:lower() == "none" then
 								text = "Normal"
 							end
 							instance5.Text = text
-							if _G.__4HubMutStyle then
-								_G.__4HubMutStyle(instance5, text41)
-							elseif _G.__4HubMutColor then
-								instance5.TextColor3 = _G.__4HubMutColor(text41)
+							if _G.__RyftMutStyle then
+								_G.__RyftMutStyle(instance5, text41)
+							elseif _G.__RyftMutColor then
+								instance5.TextColor3 = _G.__RyftMutColor(text41)
 							end
-							frame7:SetAttribute("4HubTraitDrawn", false)
-							local 4HubPromptTraits = _G.__4HubPromptTraits and _G.__4HubPromptTraits(value508) or {}
+							frame7:SetAttribute("RyftTraitDrawn", false)
+							local RyftPromptTraits = _G.__RyftPromptTraits and _G.__RyftPromptTraits(value508) or {}
 							task.defer(function()
 								local x = instance5.AbsoluteSize.X
 								if x and x > 0 then
 									frame7.Position = UDim2.fromOffset(22 + x + 8, 10)
 								end
-								if _G.__4HubRenderTraits then
-									_G.__4HubRenderTraits(frame7, 4HubPromptTraits, 13)
+								if _G.__RyftRenderTraits then
+									_G.__RyftRenderTraits(frame7, RyftPromptTraits, 13)
 								end
 							end)
 							handleAction377()
-							if _G.__4HubEnabledAlerts and _G.__4HubAlertSoundId then
+							if _G.__RyftEnabledAlerts and _G.__RyftAlertSoundId then
 								pcall(function()
-									sound.SoundId = "rbxassetid://" .. _G.__4HubAlertSoundId
+									sound.SoundId = "rbxassetid://" .. _G.__RyftAlertSoundId
 									sound:Play()
 								end)
 							end
@@ -17774,8 +17774,8 @@ do
 				name = "Click To AP",
 				mode = "toggle",
 				act = function()
-					if _G.__4HubToggleClickAP then
-						_G.__4HubToggleClickAP()
+					if _G.__RyftToggleClickAP then
+						_G.__RyftToggleClickAP()
 					end
 				end,
 			},
@@ -17784,8 +17784,8 @@ do
 				name = "Proximity",
 				mode = "toggle",
 				act = function()
-					if _G.__4HubToggleProximityAP then
-						_G.__4HubToggleProximityAP()
+					if _G.__RyftToggleProximityAP then
+						_G.__RyftToggleProximityAP()
 					end
 				end,
 			},
@@ -17795,8 +17795,8 @@ do
 				mode = "pulse",
 				dur = 1,
 				act = function()
-					if _G.__4HubSpamBaseOwner then
-						_G.__4HubSpamBaseOwner()
+					if _G.__RyftSpamBaseOwner then
+						_G.__RyftSpamBaseOwner()
 					end
 				end,
 			},
@@ -17805,11 +17805,11 @@ do
 				name = "Carpet Speed",
 				mode = "mirror",
 				get = function()
-					return _G.__4HubCarpetToggle and _G.__4HubCarpetToggle.Get()
+					return _G.__RyftCarpetToggle and _G.__RyftCarpetToggle.Get()
 				end,
 				set = function(argument493)
-					if _G.__4HubCarpetToggle then
-						_G.__4HubCarpetToggle.Set(argument493)
+					if _G.__RyftCarpetToggle then
+						_G.__RyftCarpetToggle.Set(argument493)
 					end
 				end,
 			},
@@ -17818,29 +17818,29 @@ do
 				name = "Infinite Jump",
 				mode = "mirror",
 				get = function()
-					return _G.__4HubInfJumpToggle and _G.__4HubInfJumpToggle.Get()
+					return _G.__RyftInfJumpToggle and _G.__RyftInfJumpToggle.Get()
 				end,
 				set = function(argument494)
-					if _G.__4HubInfJumpToggle then
-						_G.__4HubInfJumpToggle.Set(argument494)
+					if _G.__RyftInfJumpToggle then
+						_G.__RyftInfJumpToggle.Set(argument494)
 					end
 				end,
 			},
 			{ id = "JobCopy", name = "Job ID Copier (No extra GUI)", mode = "copy", dur = 1.5 },
 		}
-		local 4HubCustomPanel = playerGui_:FindFirstChild("4HubCustomPanel")
-		if 4HubCustomPanel then
-			4HubCustomPanel:Destroy()
+		local RyftCustomPanel = playerGui_:FindFirstChild("RyftCustomPanel")
+		if RyftCustomPanel then
+			RyftCustomPanel:Destroy()
 		end
 		local instance4 = Instance.new("ScreenGui")
-		instance4.Name = "4HubCustomPanel"
+		instance4.Name = "RyftCustomPanel"
 		instance4.ResetOnSpawn = false
 		instance4.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 		instance4.IgnoreGuiInset = true
 		instance4.DisplayOrder = 80
 		instance4.Enabled = false
 		instance4.Parent = playerGui_
-		_G.__4HubShowCustomPanel = function(argument495)
+		_G.__RyftShowCustomPanel = function(argument495)
 			if instance4 then
 				instance4.Enabled = argument495 and true or false
 			end
@@ -17881,7 +17881,7 @@ do
 		end
 		uiGradient2.Color = colorSequence(items128)
 		uiGradient2.Parent = uiStroke2
-		_G.__4HubSpin(uiGradient2, 90, function()
+		_G.__RyftSpin(uiGradient2, 90, function()
 			return instance4.Enabled
 		end)
 		local uiListLayout = Instance.new("UIListLayout")
@@ -18162,8 +18162,8 @@ do
 			frame6.Visible = not entry165
 			textButton3.Text = entry165 and "+" or "–"
 		end)
-		if _G.__4HubRegisterDrag then
-			_G.__4HubRegisterDrag(frame5, instance5, "CustomPanelWin", UDim2.new(0.5, 0, 0.5, 0))
+		if _G.__RyftRegisterDrag then
+			_G.__RyftRegisterDrag(frame5, instance5, "CustomPanelWin", UDim2.new(0.5, 0, 0.5, 0))
 		end
 		return
 	end
